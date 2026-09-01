@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Technical System Design — Interest-Based 1:1 Matching (Modular Monolith)</title>
+<style>
+  @page { size: A4; margin: 0; }
+
+  :root {
+    --navy: #2F3C7E;
+    --darknavy: #1E2650;
+    --coral: #F96167;
+    --gold: #F9E795;
+    --teal: #2BB3A3;
+    --offwhite: #FFFBF5;
+    --gray: #5B5F73;
+    --line: #DCE1F0;
+    --card-navy: #2C3768;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Calibri, "Segoe UI", Arial, sans-serif;
+    color: #232634;
+    font-size: 10.3pt;
+    line-height: 1.45;
+  }
+
+  h1, h2, h3 { font-family: Cambria, Georgia, serif; font-weight: 700; }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 16mm 16mm 14mm;
+    position: relative;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  .dark { background: var(--darknavy); color: #fff; }
+  .light { background: var(--offwhite); color: #232634; }
+
+  .eyebrow {
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .light .eyebrow { color: var(--coral); }
+  .dark .eyebrow { color: var(--gold); }
+
+  .pagefoot {
+    position: absolute;
+    bottom: 10mm; left: 16mm; right: 16mm;
+    display: flex; justify-content: space-between;
+    font-size: 7.5pt; color: var(--gray);
+    letter-spacing: 0.5px;
+  }
+  .dark .pagefoot { color: #8991C4; }
+
+  /* ---------- Cover ---------- */
+  #cover { display: flex; flex-direction: column; justify-content: center; }
+  #cover .tag { color: var(--gold); font-size: 9pt; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px; }
+  #cover h1 { font-size: 30pt; line-height: 1.2; color: #fff; margin-bottom: 14px; max-width: 85%; }
+  #cover .sub { color: #CCD3EE; font-size: 12pt; font-style: italic; margin-bottom: 60px; max-width: 80%; }
+  #cover .meta { display: flex; gap: 40px; }
+  #cover .metaitem { font-size: 8.5pt; color: #8991C4; text-transform: uppercase; letter-spacing: 1.5px; }
+  #cover .metaitem .val { display: block; color: #fff; font-size: 10.5pt; text-transform: none; letter-spacing: 0; margin-top: 4px; font-family: Cambria, Georgia, serif; }
+  #cover .blob { position: absolute; border-radius: 50%; }
+  #cover .b1 { width: 300px; height: 300px; top: -120px; right: -100px; background: var(--coral); opacity: 0.15; }
+  #cover .b2 { width: 240px; height: 240px; bottom: -100px; left: -80px; background: var(--teal); opacity: 0.12; }
+
+  /* ---------- Generic section header ---------- */
+  .sec-title { font-size: 19pt; margin-bottom: 4px; }
+  .sec-desc { color: var(--gray); font-size: 9.5pt; max-width: 90%; margin-bottom: 20px; }
+  .dark .sec-desc { color: #B9C1E8; }
+
+  /* ---------- Diagram boxes ---------- */
+  .flow { display: flex; align-items: stretch; gap: 8px; margin: 14px 0 20px; flex-wrap: wrap; }
+  .box {
+    flex: 1; min-width: 90px;
+    background: #fff; border: 1.5px solid var(--line); border-radius: 8px;
+    padding: 10px 10px; text-align: center; display: flex; flex-direction: column; justify-content: center;
+  }
+  .box.navy { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .box.coral { background: var(--coral); color: #fff; border-color: var(--coral); }
+  .box.teal { background: var(--teal); color: #fff; border-color: var(--teal); }
+  .box .t { font-weight: 700; font-size: 9pt; margin-bottom: 2px; }
+  .box .d { font-size: 7.3pt; opacity: 0.9; }
+  .arrow { align-self: center; font-size: 14pt; color: var(--gray); font-weight: 700; padding: 0 2px; }
+
+  /* ---------- Service cards ---------- */
+  .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .svc-card { background: #fff; border: 1.5px solid var(--line); border-left: 5px solid var(--navy); border-radius: 8px; padding: 12px 14px; }
+  .svc-card.alt { border-left-color: var(--coral); }
+  .svc-card h3 { font-size: 10.5pt; color: var(--navy); margin-bottom: 4px; }
+  .svc-card .role { font-size: 8pt; color: var(--coral); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .svc-card p { font-size: 8.3pt; color: var(--gray); margin-bottom: 6px; }
+  .tagrow { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tagrow span { background: #EEF1FA; color: var(--navy); font-size: 7.2pt; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+
+  /* ---------- Numbered steps ---------- */
+  .steplist { counter-reset: step; }
+  .steplist .s { display: flex; gap: 10px; margin-bottom: 12px; }
+  .steplist .n { counter-increment: step; flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--coral); color: #fff; font-size: 9pt; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .steplist .n::before { content: counter(step); }
+  .steplist h4 { font-size: 9.5pt; color: var(--navy); margin-bottom: 2px; }
+  .dark .steplist h4 { color: var(--gold); }
+  .steplist p { font-size: 8.3pt; color: var(--gray); }
+  .dark .steplist p { color: #CCD3EE; }
+
+  /* ---------- Tables ---------- */
+  table { width: 100%; border-collapse: collapse; font-size: 8.2pt; margin-top: 10px; }
+  th { background: var(--navy); color: #fff; text-align: left; padding: 7px 9px; font-size: 7.8pt; text-transform: uppercase; letter-spacing: 0.4px; }
+  td { padding: 7px 9px; border-bottom: 1px solid var(--line); color: #3A3F55; vertical-align: top; }
+  tr:nth-child(even) td { background: #F7F8FC; }
+
+  /* ---------- Callout ---------- */
+  .callout { background: #FFF3E9; border-left: 4px solid var(--coral); border-radius: 6px; padding: 10px 14px; font-size: 8.3pt; color: #5B4030; margin-top: 14px; }
+  .callout b { color: var(--coral); }
+  .dark .callout { background: var(--card-navy); border-left-color: var(--gold); color: #E3E7F7; }
+  .dark .callout b { color: var(--gold); }
+
+  h2.h { font-size: 13pt; color: var(--navy); margin: 18px 0 8px; }
+  .dark h2.h { color: #fff; }
+  .small-note { font-size: 7.5pt; color: var(--gray); margin-top: 6px; }
+  .dark .small-note { color: #8991C4; }
+
+  /* ---------- Module tree (monolith-specific) ---------- */
+  .tree {
+    background: #fff; border: 1.5px solid var(--line); border-radius: 8px;
+    padding: 14px 16px; font-family: "Courier New", monospace; font-size: 7.8pt;
+    color: #3A3F55; line-height: 1.7; margin-top: 10px; white-space: pre;
+  }
+  .tree .c1 { color: var(--navy); font-weight: 700; }
+  .tree .c2 { color: var(--coral); font-weight: 700; }
+  .tree .c3 { color: var(--teal); font-weight: 700; }
+  .dark .tree { background: var(--card-navy); border-color: #3E4A85; color: #E3E7F7; }
+
+  /* ---------- Compare pills ---------- */
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .comp-card { border-radius: 8px; padding: 12px 14px; border: 1.5px solid var(--line); background: #fff; }
+  .comp-card.win { border-color: var(--teal); background: #F0FBF9; }
+  .comp-card h4 { font-size: 9pt; color: var(--navy); margin-bottom: 6px; }
+  .comp-card ul { padding-left: 16px; }
+  .comp-card li { font-size: 8pt; color: var(--gray); margin-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ================= COVER ================= -->
+<section class="page dark" id="cover">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="tag">Technical Design Document</div>
+  <h1>Interest-Based 1:1 Matching Platform<br>Modular Monolith Architecture</h1>
+  <div class="sub">One backend, one frontend, one deploy — built with the same module boundaries as a microservices system, so it can split later without a rewrite.</div>
+  <div class="meta">
+    <div class="metaitem">Scope<span class="val">Backend + frontend architecture</span></div>
+    <div class="metaitem">Focus<span class="val">Ship fast, stay splittable</span></div>
+    <div class="metaitem">Version<span class="val">v1.0</span></div>
+  </div>
+</section>
+
+<!-- ================= 1. SYSTEM DESIGN OVERVIEW ================= -->
+<section class="page light">
+  <div class="eyebrow">01 · System Design</div>
+  <h1 class="sec-title">How the system is structured</h1>
+  <p class="sec-desc">A single frontend talks to a single backend app over REST and WebSocket. Internally, the backend is split into clearly-bounded modules — the same logical boundaries a microservices version would have — but they run in one process, deploy together, and share one database.</p>
+
+  <div class="flow">
+    <div class="box navy"><div class="t">Frontend</div><div class="d">Next.js / React Native</div></div>
+    <div class="arrow">→</div>
+    <div class="box coral"><div class="t">Backend App</div><div class="d">REST + WebSocket, one process</div></div>
+    <div class="arrow">→</div>
+    <div class="box teal"><div class="t">Modules</div><div class="d">Auth · Profile · Matching · Session · AI · Notify</div></div>
+    <div class="arrow">→</div>
+    <div class="box navy"><div class="t">Data Layer</div><div class="d">1 Postgres (per-module schemas) + Redis</div></div>
+  </div>
+
+  <h2 class="h">Core layers</h2>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="role">Client</div>
+      <h3>Frontend App</h3>
+      <p>One codebase serving web (and mobile via React Native/Expo where possible). Handles UI, WebSocket subscriptions for live match/session/feedback events.</p>
+      <div class="tagrow"><span>Next.js</span><span>React Native</span><span>Socket.IO client</span></div>
+    </div>
+    <div class="svc-card alt">
+      <div class="role">Server</div>
+      <h3>Backend App</h3>
+      <p>One deployable app exposing REST endpoints and a WebSocket gateway. Internally organized into modules with enforced boundaries, not a tangle of shared logic.</p>
+      <div class="tagrow"><span>NestJS / FastAPI</span><span>JWT auth</span><span>Module DI</span></div>
+    </div>
+    <div class="svc-card">
+      <div class="role">Async</div>
+      <h3>Background Worker</h3>
+      <p>Same codebase, separate entry point/process. Pulls AI-feedback jobs off a Redis queue so the API never blocks on speech-to-text or LLM calls.</p>
+      <div class="tagrow"><span>BullMQ / Celery</span><span>Redis queue</span><span>Horizontally scalable</span></div>
+    </div>
+    <div class="svc-card alt">
+      <div class="role">Storage</div>
+      <h3>Data Layer</h3>
+      <p>One PostgreSQL instance, one schema per module (logical separation without operational overhead). Redis covers the online pool, cache, and job queue.</p>
+      <div class="tagrow"><span>PostgreSQL</span><span>Redis</span><span>S3-compatible storage</span></div>
+    </div>
+  </div>
+
+  <div class="callout"><b>Design principle —</b> modules never import each other's database models directly — only their public service functions. This is the one rule that keeps a monolith from turning into spaghetti, and it's what makes a future service split a folder move, not a rewrite.</div>
+
+  <div class="pagefoot"><span>Interest-Based 1:1 Matching — Modular Monolith Design</span><span>01</span></div>
+</section>
+
+<!-- ================= 2. MODULE BREAKDOWN ================= -->
+<section class="page light">
+  <div class="eyebrow">02 · Modules</div>
+  <h1 class="sec-title">How each module is built</h1>
+  <p class="sec-desc">Every module follows the same internal pattern: a focused responsibility, its own schema, and a public interface other modules call through — same discipline as microservices, without the network hop.</p>
+
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="role">Identity</div>
+      <h3>Auth Module</h3>
+      <p>Signup, login, session tokens, account security. Issues short-lived JWTs validated on every request.</p>
+      <div class="tagrow"><span>auth.* schema</span><span>JWT / OAuth</span><span>bcrypt</span></div>
+    </div>
+    <div class="svc-card alt">
+      <div class="role">Profile</div>
+      <h3>Profile Module</h3>
+      <p>Stores each user's chosen topics, language level, and preferences. Exposes an interest vector to the matching module — in-process function call, not an HTTP round trip.</p>
+      <div class="tagrow"><span>profile.* schema</span><span>Interest tags</span></div>
+    </div>
+    <div class="svc-card">
+      <div class="role">Core logic</div>
+      <h3>Matching Module</h3>
+      <p>Maintains a pool of online users in Redis and pairs them by shared interest overlap. Emits an in-process "match.created" event.</p>
+      <div class="tagrow"><span>Redis (online pool)</span><span>Ranking algorithm</span><span>Event emitter</span></div>
+    </div>
+    <div class="svc-card alt">
+      <div class="role">Real-time</div>
+      <h3>Session Module</h3>
+      <p>Handles the live 1:1 call: WebRTC signaling (via a managed provider like LiveKit/Daily), room creation, and the 7- or 10-minute timer. Emits "session.ended" with the transcript reference.</p>
+      <div class="tagrow"><span>WebRTC (managed)</span><span>WebSockets</span><span>Timer job</span></div>
+    </div>
+    <div class="svc-card">
+      <div class="role">Intelligence</div>
+      <h3>AI Feedback Module</h3>
+      <p>The one seam kept genuinely async even in the monolith: session-ended events become queue jobs, picked up by the background worker. Detailed in section 4.</p>
+      <div class="tagrow"><span>Speech-to-text</span><span>LLM inference</span><span>Redis queue</span></div>
+    </div>
+    <div class="svc-card alt">
+      <div class="role">Engagement</div>
+      <h3>Notification Module</h3>
+      <p>Pushes match-found alerts, session reminders, and feedback-ready notifications via WebSocket (and push for offline users). Subscribes to in-process events from other modules.</p>
+      <div class="tagrow"><span>Socket.IO</span><span>FCM/APNs</span><span>Templating</span></div>
+    </div>
+  </div>
+
+  <h2 class="h">Build pattern used for every module</h2>
+  <div class="steplist">
+    <div class="s"><div class="n"></div><div><h4>Single responsibility</h4><p>Each module owns one business capability only — same rule as microservices, just enforced by code review instead of network boundaries.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Own schema, public interface</h4><p>A private Postgres schema per module. Other modules never query it directly — only through exported service functions.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>In-process events, not direct calls</h4><p>Modules publish events (e.g. "session.ended") through an in-process emitter, so they stay decoupled the same way they would across a message bus.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>One deploy, one process</h4><p>The whole backend ships as a single container. The worker runs as a second process from the same image — no per-module CI/CD needed yet.</p></div></div>
+  </div>
+
+  <div class="callout"><b>Suggested folder layout —</b></div>
+  <div class="tree"><span class="c1">src/</span>
+├── <span class="c2">auth/</span>        service.ts · controller.ts · schema.ts
+├── <span class="c2">profile/</span>     service.ts · controller.ts · schema.ts
+├── <span class="c2">matching/</span>    service.ts · pool.redis.ts · controller.ts
+├── <span class="c2">session/</span>     service.ts · webrtc.ts · timer.ts
+├── <span class="c2">ai-feedback/</span> queue.ts · worker.ts · pipeline.ts
+├── <span class="c2">notification/</span> gateway.ts · templates.ts
+└── <span class="c3">shared/</span>      events.ts · db.ts · redis.ts</div>
+
+  <div class="pagefoot"><span>Interest-Based 1:1 Matching — Modular Monolith Design</span><span>02</span></div>
+</section>
+
+<!-- ================= 3. MATCHING FLOW ================= -->
+<section class="page light">
+  <div class="eyebrow">03 · Matching Flow</div>
+  <h1 class="sec-title">From online status to a live conversation</h1>
+  <p class="sec-desc">Identical logic to a microservices version — the Matching module works off a live Redis pool, not a full-table scan. Only the transport changes: in-process calls instead of network hops.</p>
+
+  <div class="flow">
+    <div class="box navy"><div class="t">User comes online</div><div class="d">Added to Redis pool with interests</div></div>
+    <div class="arrow">→</div>
+    <div class="box coral"><div class="t">Overlap search</div><div class="d">Find pool member with shared interest</div></div>
+    <div class="arrow">→</div>
+    <div class="box teal"><div class="t">Match event</div><div class="d">In-process "match.created" emitted</div></div>
+    <div class="arrow">→</div>
+    <div class="box navy"><div class="t">Session created</div><div class="d">Room + timer started</div></div>
+  </div>
+
+  <h2 class="h">Why this still scales</h2>
+  <table>
+    <tr><th>Concern</th><th>Approach</th></tr>
+    <tr><td>Finding a match fast</td><td>Online users live in a Redis structure keyed by interest tag — O(1) lookups per tag, same as the microservices design.</td></tr>
+    <tr><td>No match available</td><td>User stays in the pool and is notified over WebSocket the moment a compatible partner comes online — no blocking wait, no polling.</td></tr>
+    <tr><td>Fair pairing</td><td>A lightweight ranking step (interest overlap count, wait time) breaks ties so no user waits indefinitely.</td></tr>
+    <tr><td>Handling more traffic</td><td>The whole backend app scales horizontally behind a load balancer (stateless API layer); Redis holds the shared pool state across instances.</td></tr>
+  </table>
+
+  <div class="callout"><b>Session length —</b> once matched, the Session module starts the room with a 7‑minute or 10‑minute timer (user-selected). At zero, the room closes and an in-process event hands the transcript to the AI Feedback module's queue.</div>
+
+  <div class="pagefoot"><span>Interest-Based 1:1 Matching — Modular Monolith Design</span><span>03</span></div>
+</section>
+
+<!-- ================= 4. AI FEEDBACK AT SCALE ================= -->
+<section class="page dark">
+  <div class="eyebrow">04 · AI at Scale</div>
+  <h1 class="sec-title" style="color:#fff;">Handling AI responses without a microservice</h1>
+  <p class="sec-desc">This is the one piece worth keeping genuinely asynchronous even in a simple architecture — the burst-load problem is real regardless of scale. It's solved with a queue and a second process, not a separate service.</p>
+
+  <h2 class="h">The core problem</h2>
+  <p style="font-size:8.6pt; color:#CCD3EE; max-width:92%; margin-bottom:14px;">
+    Generating pronunciation and grammar feedback requires speech-to-text plus an LLM pass per session. If the API called the model synchronously on every "session.ended" event, a burst of simultaneous call endings would block API request threads and stall the whole app — even with just one backend.
+  </p>
+
+  <h2 class="h">The solution: same codebase, separate process</h2>
+  <div class="flow">
+    <div class="box coral"><div class="t">Session ends</div><div class="d">Transcript + audio ref</div></div>
+    <div class="arrow">→</div>
+    <div class="box navy"><div class="t">Redis Queue</div><div class="d">BullMQ / Celery job</div></div>
+    <div class="arrow">→</div>
+    <div class="box teal"><div class="t">Worker Process</div><div class="d">Same repo, own entrypoint</div></div>
+    <div class="arrow">→</div>
+    <div class="box navy"><div class="t">Model Inference</div><div class="d">Managed STT + LLM API</div></div>
+    <div class="arrow">→</div>
+    <div class="box coral"><div class="t">Push to user</div><div class="d">WebSocket / notification</div></div>
+  </div>
+
+  <div class="steplist">
+    <div class="s"><div class="n"></div><div><h4>Queue every job, never call the model inline</h4><p>The API route handling "session.ended" only enqueues a job and returns immediately — the user sees "feedback is on its way" instantly.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>A worker process consumes the queue</h4><p>Run as <code>node worker.js</code> (or <code>celery -A app worker</code>) — same codebase, deployed as a second process/container. Concurrency is capped (e.g. 5–20 jobs at once) instead of Kubernetes autoscaling.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Use a managed inference API, not a self-hosted GPU pool</h4><p>At this size, calling a hosted speech-to-text + LLM API is far cheaper and simpler than running your own batched GPU server — that's the first thing to defer until volume justifies it.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Per-user rate limiting still applies</h4><p>A cap on concurrent jobs per user in the queue prevents any one user (or bug) from starving everyone else — same rule, enforced in one place instead of a gateway.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Cache common results</h4><p>Recurring grammar patterns and common mispronunciations are cached in Redis, so the model is only called for what's actually new.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Results are pushed, not polled</h4><p>When a job completes, the worker writes to Postgres and emits over the same WebSocket gateway the API uses — no separate notification service needed.</p></div></div>
+  </div>
+
+  <div class="pagefoot"><span>Interest-Based 1:1 Matching — Modular Monolith Design</span><span>04</span></div>
+</section>
+
+<!-- ================= 5. RELIABILITY, STACK & MIGRATION PATH ================= -->
+<section class="page light">
+  <div class="eyebrow">05 · Reliability, Stack &amp; Migration Path</div>
+  <h1 class="sec-title">Resilient today, splittable tomorrow</h1>
+  <p class="sec-desc">One process means fewer moving parts to break — but you still design for graceful failure, and you keep the door open to split out services later.</p>
+
+  <table>
+    <tr><th>Risk</th><th>Mitigation</th></tr>
+    <tr><td>Worker job fails mid-run</td><td>Jobs are re-queued automatically (BullMQ/Celery retry policy); jobs failing after N retries land in a dead-letter queue for review instead of being lost.</td></tr>
+    <tr><td>Backend instance crashes</td><td>Multiple stateless app instances behind a load balancer — a crashed instance is restarted/replaced without dropping the whole app.</td></tr>
+    <tr><td>One module has a bug</td><td>Contained by module boundaries and typed interfaces, but a hard crash can still affect the process — this is the main trade-off vs. microservices, mitigated by good test coverage per module.</td></tr>
+    <tr><td>Traffic spikes</td><td>Horizontal autoscaling on the app tier (2–3 instances typical for a launch); worker concurrency scales independently since it's a separate process.</td></tr>
+    <tr><td>Silent failures</td><td>Centralized logging and error tracking (Sentry) across the single app — actually simpler to trace than cross-service logs at this size.</td></tr>
+  </table>
+
+  <h2 class="h">Suggested technology stack</h2>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h3>Frontend</h3>
+      <div class="tagrow"><span>Next.js</span><span>React Native / Expo</span></div>
+    </div>
+    <div class="svc-card alt">
+      <h3>Backend</h3>
+      <div class="tagrow"><span>NestJS or FastAPI</span><span>Module DI boundaries</span></div>
+    </div>
+    <div class="svc-card">
+      <h3>Data</h3>
+      <div class="tagrow"><span>PostgreSQL (1 instance)</span><span>Redis</span><span>S3-compatible storage</span></div>
+    </div>
+    <div class="svc-card alt">
+      <h3>Realtime &amp; Calls</h3>
+      <div class="tagrow"><span>Socket.IO</span><span>LiveKit / Daily (managed WebRTC)</span></div>
+    </div>
+    <div class="svc-card">
+      <h3>AI Layer</h3>
+      <div class="tagrow"><span>Managed STT API</span><span>Managed LLM API</span><span>BullMQ / Celery</span></div>
+    </div>
+    <div class="svc-card alt">
+      <h3>Deploy &amp; Ops</h3>
+      <div class="tagrow"><span>Railway / Render / Fly.io</span><span>Sentry</span><span>Single CI pipeline</span></div>
+    </div>
+  </div>
+
+  <h2 class="h">This vs. the microservices version</h2>
+  <div class="comp-grid">
+    <div class="comp-card win">
+      <h4>Modular Monolith (this doc)</h4>
+      <ul>
+        <li>One deploy, one database, one CI pipeline</li>
+        <li>Ships in weeks, not months</li>
+        <li>Runs on 1–3 small instances + a worker</li>
+        <li>Right fit for 1–3 devs and pre-scale traffic</li>
+      </ul>
+    </div>
+    <div class="comp-card">
+      <h4>Microservices (prior doc)</h4>
+      <ul>
+        <li>Kubernetes, Kafka, DB-per-service, per-service CI/CD</li>
+        <li>Weeks of infra setup before first feature ships</li>
+        <li>Each service scales independently</li>
+        <li>Right fit once a real team and real load exist</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout"><b>Migration path —</b> because module boundaries are already enforced (own schema, public interface only, event-driven communication), moving the AI Feedback or Matching module into its own service later is a matter of adding a network call where an in-process one used to be — not a redesign.</div>
+
+  <div class="small-note">This document focuses on architecture and design decisions, not implementation code. Both frontend and backend can use any language/framework that fits the team, as long as module boundaries and the queue-based AI pipeline above are respected.</div>
+
+  <div class="pagefoot"><span>Interest-Based 1:1 Matching — Modular Monolith Design</span><span>05</span></div>
+</section>
+
+</body>
+</html>

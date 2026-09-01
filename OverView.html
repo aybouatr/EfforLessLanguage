@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interest-Based 1:1 Matching — Pitch Deck</title>
+<style>
+  :root {
+    --navy: #2F3C7E;
+    --darknavy: #232C5C;
+    --coral: #F96167;
+    --gold: #F9E795;
+    --offwhite: #FFFBF5;
+    --gray: #5B5F73;
+    --card-navy: #2C3768;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-snap-type: y proximity; }
+
+  body {
+    font-family: Calibri, "Segoe UI", Arial, sans-serif;
+    background: #111;
+  }
+
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    min-height: 56.25vw;      /* keeps the 16:9 feel without clipping content */
+    max-height: none;
+    position: relative;
+    overflow: visible;
+    padding: 3.2% 4.9% 4%;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slide.clip { overflow: hidden; }  /* only the decorative-blob slides need clipping */
+
+  .slide + .slide { margin-top: 14px; }
+
+  .light { background: var(--offwhite); color: var(--navy); }
+  .dark  { background: var(--darknavy); color: #fff; }
+
+  h1, h2, h3 { font-family: Cambria, Georgia, serif; font-weight: 700; }
+
+  .eyebrow {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .light .eyebrow { color: var(--coral); }
+  .dark  .eyebrow { color: var(--gold); }
+
+  /* decorative blobs */
+  .blob { position: absolute; border-radius: 50%; z-index: 0; }
+
+  /* ---------- Slide 1: Title ---------- */
+  #s1 { justify-content: center; }
+  #s1 .blob.a { width: 44%; height: 78%; top: -30%; right: -8%; background: var(--coral); opacity: 0.12; }
+  #s1 .blob.b { width: 38%; height: 68%; bottom: -30%; left: -12%; background: var(--gold); opacity: 0.08; }
+  #s1 .content { position: relative; z-index: 1; max-width: 78%; }
+  #s1 h1 { font-size: 2.6rem; line-height: 1.15; margin: 1rem 0 1.2rem; }
+  #s1 .sub { font-style: italic; color: #CCD3EE; font-size: 1.05rem; margin-bottom: 3rem; }
+  #s1 .foot { color: #8991C4; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; position: absolute; bottom: 6%; }
+
+  /* ---------- Slide 2: Problem ---------- */
+  #s2 { flex-direction: row; gap: 3%; }
+  #s2 .left { flex: 1.45; }
+  #s2 h2 { font-size: 1.8rem; line-height: 1.25; margin-bottom: 0.9rem; }
+  #s2 .lead { color: var(--gray); font-size: 0.95rem; line-height: 1.5; max-width: 90%; margin-bottom: 1.6rem; }
+  #s2 .item { display: flex; gap: 0.9rem; margin-bottom: 1.3rem; }
+  #s2 .dot { flex: none; width: 40px; height: 40px; border-radius: 50%; background: #FDE3E3; color: var(--coral); font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  #s2 .item h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+  #s2 .item p { font-size: 0.82rem; color: var(--gray); }
+  #s2 .right { flex: 1; background: #FFF3E9; border-radius: 14px; padding: 6% 6%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  #s2 .pair { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1.2rem; }
+  .circle { border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; background: var(--navy); }
+  #s2 .circle { width: 70px; height: 70px; font-size: 1.4rem; }
+  #s2 .link { width: 50px; height: 2px; background: repeating-linear-gradient(90deg, var(--coral) 0 8px, transparent 8px 14px); align-self: center; margin-top: -3.4rem; }
+  #s2 .caption { text-align: center; font-size: 0.78rem; color: var(--gray); }
+  #s2 .caption b { color: var(--coral); display: block; margin-bottom: 0.2rem; font-size: 0.85rem; }
+
+  /* ---------- Slide 3: Solution ---------- */
+  #s3 { flex-direction: row; gap: 3%; }
+  #s3 .left { flex: 1.3; }
+  #s3 h2 { font-size: 1.8rem; margin-bottom: 1.2rem; }
+  #s3 .quote-box { background: var(--card-navy); border-radius: 12px; padding: 1.4rem 1.6rem; margin-bottom: 1.3rem; }
+  #s3 .quote-box q { display: block; font-family: Cambria, Georgia, serif; font-style: italic; font-weight: 700; color: var(--gold); font-size: 1.15rem; margin-bottom: 0.6rem; }
+  #s3 .quote-box p { color: #CCD3EE; font-size: 0.8rem; line-height: 1.4; }
+  #s3 .body-text { color: #E3E7F7; font-size: 0.9rem; line-height: 1.5; }
+  #s3 .right { flex: 1; display: flex; flex-direction: column; gap: 0.9rem; }
+  #s3 .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  #s3 .tag { background: var(--card-navy); color: #fff; padding: 0.45rem 0.9rem; border-radius: 20px; font-size: 0.78rem; font-weight: 700; }
+  #s3 .tag.accent { background: var(--coral); }
+  #s3 .match-box { flex: 1; background: var(--card-navy); border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; }
+  #s3 .match-pair { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.9rem; }
+  #s3 .match-pair .circle { width: 64px; height: 64px; background: var(--gold); color: var(--darknavy); font-size: 1.3rem; }
+  #s3 .heart { width: 30px; height: 30px; border-radius: 50%; background: var(--coral); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+  #s3 .match-box b { color: var(--gold); font-size: 0.85rem; margin-bottom: 0.3rem; }
+  #s3 .match-box p { color: #CCD3EE; font-size: 0.75rem; max-width: 80%; }
+
+  /* ---------- Slide 4: How It Works ---------- */
+  #s4 h2 { font-size: 1.8rem; margin-bottom: 1.8rem; }
+  #s4 .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; align-items: stretch; }
+  #s4 .step { border-radius: 14px; padding: 1.2rem 1.1rem; color: #fff; display: flex; flex-direction: column; position: relative; min-height: 300px; }
+  #s4 .step:nth-child(odd) { background: var(--navy); }
+  #s4 .step:nth-child(even) { background: var(--coral); }
+  #s4 .step .num { font-family: Cambria, Georgia, serif; font-size: 2.1rem; font-weight: 700; margin-bottom: 1rem; }
+  #s4 .step h4 { font-size: 0.95rem; margin-bottom: 0.7rem; }
+  #s4 .step p { font-size: 0.72rem; line-height: 1.4; color: #F2F2F2; }
+  #s4 .step:not(:last-child)::after { content: "→"; position: absolute; right: -1rem; top: 45%; font-size: 1.1rem; font-weight: 700; color: var(--gray); }
+
+  /* ---------- Slide 4b: Three Core Features ---------- */
+  #s4b h2 { font-size: 1.8rem; margin-bottom: 0.5rem; max-width: 85%; }
+  #s4b .lead { color: var(--gray); font-size: 0.9rem; margin-bottom: 1.6rem; max-width: 75%; }
+  #s4b .feat-row { display: flex; gap: 1rem; flex: 1; }
+  #s4b .feat-card { flex: 1; background: #FFFFFF; border: 1px solid #ECE3D2; border-radius: 14px; padding: 1.5rem 1.4rem; display: flex; flex-direction: column; }
+  #s4b .feat-card .tag-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; color: var(--coral); margin-bottom: 0.7rem; }
+  #s4b .feat-card h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: 0.9rem; line-height: 1.25; }
+  #s4b .feat-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; flex: 1; }
+  #s4b .feat-card li { font-size: 0.76rem; line-height: 1.4; color: var(--gray); padding-left: 0.9rem; position: relative; }
+  #s4b .feat-card li::before { content: ""; position: absolute; left: 0; top: 0.42rem; width: 5px; height: 5px; border-radius: 50%; background: var(--coral); }
+  #s4b .feat-card li b { color: var(--navy); }
+  #s4b .feat-card.mid { background: var(--card-navy); border-color: var(--card-navy); }
+  #s4b .feat-card.mid h3 { color: #fff; }
+  #s4b .feat-card.mid li { color: #CCD3EE; }
+  #s4b .feat-card.mid li b { color: var(--gold); }
+  #s4b .feat-card.mid li::before { background: var(--gold); }
+  #s4b .feat-card.mid .tag-label { color: var(--gold); }
+  #s4b .loop-note { margin-top: 1.3rem; font-size: 0.78rem; color: var(--gray); text-align: center; }
+  #s4b .loop-note b { color: var(--coral); }
+
+  /* ---------- Slide 5: Why This Works ---------- */
+  #s5 h2 { font-size: 1.8rem; margin-bottom: 1.8rem; }
+  #s5 .grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; flex: 1; }
+  #s5 .card { background: #FFF5F0; border-radius: 12px; padding: 1.3rem; display: flex; gap: 1rem; align-items: flex-start; }
+  #s5 .card .circle { width: 48px; height: 48px; background: var(--coral); font-size: 1rem; flex: none; }
+  #s5 .card h4 { font-size: 1rem; margin-bottom: 0.4rem; color: var(--navy); }
+  #s5 .card p { font-size: 0.8rem; color: var(--gray); line-height: 1.4; }
+
+  /* ---------- Slide 6: Investable ---------- */
+  #s6 h2 { font-size: 1.8rem; margin-bottom: 1.8rem; max-width: 90%; }
+  #s6 .cols { display: flex; gap: 1rem; flex: 1; }
+  #s6 .col { flex: 1; background: var(--card-navy); border-radius: 12px; padding: 1.4rem; display: flex; flex-direction: column; }
+  #s6 .col .circle { width: 52px; height: 52px; background: var(--gold); color: var(--darknavy); font-size: 1.1rem; margin-bottom: 1.4rem; }
+  #s6 .col h4 { font-size: 1.05rem; margin-bottom: 0.7rem; }
+  #s6 .col p { font-size: 0.8rem; color: #CCD3EE; line-height: 1.45; }
+
+  /* ---------- Slide 7: Closing ---------- */
+  #s7 { justify-content: center; align-items: center; text-align: center; }
+  #s7 .blob.a { width: 40%; height: 75%; top: -25%; left: -12%; background: var(--coral); opacity: 0.1; }
+  #s7 .blob.b { width: 38%; height: 70%; bottom: -25%; right: -10%; background: var(--gold); opacity: 0.08; }
+  #s7 .content { position: relative; z-index: 1; max-width: 75%; }
+  #s7 q { display: block; font-family: Cambria, Georgia, serif; font-style: italic; font-weight: 700; font-size: 1.7rem; line-height: 1.3; margin: 1rem 0 1.4rem; }
+  #s7 .sub { color: #CCD3EE; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.8rem; }
+  #s7 .cta { display: inline-block; background: var(--coral); color: #fff; font-weight: 700; padding: 0.75rem 2rem; border-radius: 30px; font-size: 0.9rem; }
+
+  @media (max-width: 900px) {
+    #s2, #s3 { flex-direction: column; }
+    #s4 .steps, #s5 .grid, #s6 .cols { grid-template-columns: 1fr; flex-direction: column; }
+    #s4 .step::after { display: none; }
+    #s4b .feat-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<section class="slide dark clip" id="s1">
+  <div class="blob a"></div>
+  <div class="blob b"></div>
+  <div class="content">
+    <div class="eyebrow">Interest-Based 1:1 Matching</div>
+    <h1>Connect people over what they actually love talking about.</h1>
+    <div class="sub">A conversation platform that matches on shared interests — not random luck.</div>
+    <div class="foot">Pitch Overview</div>
+  </div>
+</section>
+
+<!-- Slide 2: The Problem -->
+<section class="slide light" id="s2">
+  <div class="left">
+    <div class="eyebrow">The Problem</div>
+    <h2>Random matching leaves conversations with nothing to talk about</h2>
+    <p class="lead">Most conversation and language-exchange apps pair strangers by whoever happens to be online — not by common ground.</p>
+
+    <div class="item">
+      <div class="dot">!</div>
+      <div><h4>Awkward, forced conversations</h4><p>Two strangers, no shared ground to start from.</p></div>
+    </div>
+    <div class="item">
+      <div class="dot">!</div>
+      <div><h4>Short, boring sessions</h4><p>Calls end quickly when there's nothing to say.</p></div>
+    </div>
+    <div class="item">
+      <div class="dot">!</div>
+      <div><h4>Users losing interest and leaving</h4><p>Bad first experiences kill retention fast.</p></div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="pair">
+      <div class="circle">A</div>
+      <div class="circle">B</div>
+    </div>
+    <div class="link"></div>
+    <div class="caption"><b>No shared interest</b>= conversation stalls</div>
+  </div>
+</section>
+
+<!-- Slide 3: The Solution -->
+<section class="slide dark" id="s3">
+  <div class="left">
+    <div class="eyebrow">The Solution</div>
+    <h2>Match on shared interests, first</h2>
+    <div class="quote-box">
+      <q>"What do you enjoy talking about?"</q>
+      <p>Asked once at signup — movies, sports, travel, business, music, cooking, gaming, and more.</p>
+      
+    </div>
+    <p class="body-text">When two people are matched, the system looks for shared interests first — not just who happens to be online. Instead of a random pairing, people get connected with someone who actually wants to talk about the same things.</p>
+  </div>
+  <div class="right">
+    <div class="tags">
+      <div class="tag">Movies</div>
+      <div class="tag accent">Travel</div>
+      <div class="tag">Music</div>
+      <div class="tag">Sports</div>
+      <div class="tag accent">Cooking</div>
+      <div class="tag">Gaming</div>
+      <div class="tag">Business</div>
+    </div>
+    <div class="match-box">
+      <div class="match-pair">
+        <div class="circle">A</div>
+        <div class="heart">&#10084;</div>
+        <div class="circle">B</div>
+      </div>
+      <b>Shared interest: Travel</b>
+      <p>Relevant topic, real connection from the first minute</p>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 4: How It Works -->
+<section class="slide light" id="s4">
+  <div class="eyebrow">How It Works</div>
+  <h2>A simple five-step flow</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div><h4>Sign up</h4>
+       <p>Set up your profile once — name, nationality, and basic information.</p>
+        <p>Select your interests once — movies, sports, travel, business, music, cooking, gaming, and more.</p>
+        <p>We use your profile and interests to help you find people with things in common.</p>
+
+    </div>
+    <div class="step">
+      <div class="num">2</div><h4>Match</h4>
+      <p>The app matches you with another user who is currently online and available for a conversation.</p> 
+      <p>Both users must have at least one shared interest, and the app considers their remaining conversation time when creating a match.</p> 
+      <p>If multiple users are available, the app prioritizes the best match based on shared interests, availability, and remaining time.</p>
+       <p>Users are shown only when they are available to start a conversation, so you don't get matched with someone whose session is about to end.</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div><h4>Conversation</h4>
+      <p>A 1:1 face-to-face session for 7 or 10 minutes with shared topics, live chat, Topic Gifts, and simple language games to keep the conversation fun and engaging.</p>
+
+    </div>
+    <div class="step">
+      <div class="num">4</div><h4>AI feedback</h4>
+      <p>After the call, AI flags mispronounced words, gives a quick grammar note, and logs how you rated your partner — enjoyed it, match again, or not for me.</p>
+    </div>
+    <!-- <div class="step">
+      <div class="num">5</div><h4>Learn &amp; save</h4>
+      <p>Save the topic or person you clicked with — matching gets smarter with every session.</p>
+    </div>
+  </div> -->
+</section>
+
+<!-- Slide 4b: Three Core Features -->
+<section class="slide light" id="s4b">
+  <div class="eyebrow">The Product</div>
+  <h2>Three features, one reinforcing loop</h2>
+  <p class="lead">Each session feeds the Dashboard. The Dashboard feeds the Leaderboard. Both pull people back into the next session.</p>
+  <div class="feat-row">
+    <div class="feat-card">
+      <div class="tag-label">01 &nbsp;·&nbsp; THE CORE LOOP</div>
+      <h3>1:1 Session</h3>
+      <ul>
+        <li><b>Trigger:</b> user taps "Find a match"</li>
+        <li><b>Matching logic:</b> shared interest + online availability + remaining session time</li>
+        <li><b>Session:</b> 7 or 10 min live call, with Topic Gifts and language mini-games</li>
+        <li><b>Post-session:</b> AI feedback on pronunciation and grammar, plus a rating — enjoyed / match again / not for me</li>
+        <li><b>Feeds:</b> saved buddies, and the data behind the Dashboard and Leaderboard</li>
+      </ul>
+    </div>
+    <div class="feat-card mid">
+      <div class="tag-label">02 &nbsp;·&nbsp; THE SOCIAL HOOK</div>
+      <h3>Leaderboard</h3>
+      <ul>
+        <li><b>Ranking metrics:</b> most conversations this week, longest active streak, most "match again" ratings received</li>
+        <li><b>Scope:</b> resets weekly, so newcomers always have a fresh shot at ranking</li>
+        <li><b>Segments:</b> split by interest category, e.g. "Top in Travel talkers"</li>
+        <li><b>Reward:</b> a badge or title on your profile — status, not a prize</li>
+      </ul>
+    </div>
+    <div class="feat-card">
+      <div class="tag-label">03 &nbsp;·&nbsp; THE PROGRESS HUB</div>
+      <h3>Dashboard</h3>
+      <ul>
+        <li><b>Streak tracker:</b> consecutive days with a session</li>
+        <li><b>Stats:</b> total conversations, minutes talked, interests practiced</li>
+        <li><b>AI recap:</b> a weekly digest of mispronounced words and grammar patterns to work on</li>
+        <li><b>Saved buddies:</b> who you've connected with, and who's online now</li>
+        <li><b>Levels:</b> visible progress, e.g. "Level 4 Conversationalist"</li>
+      </ul>
+    </div>
+  </div>
+  <p class="loop-note">Session → <b>Dashboard</b> shows personal growth → <b>Leaderboard</b> shows how you compare → both bring you back to the next Session.</p>
+</section>
+
+<!-- Slide 5: Why This Works -->
+<section class="slide light" id="s5">
+  <div class="eyebrow">Why This Works</div>
+  <h2>Real interests lead to real engagement</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="circle">1</div>
+      <div><h4>Better conversations</h4><p>People talk about what excites them, so it flows naturally.</p></div>
+    </div>
+    <div class="card">
+      <div class="circle">2</div>
+      <div><h4>Longer engagement</h4><p>Users stay on calls longer and come back more often.</p></div>
+    </div>
+    <div class="card">
+      <div class="circle">3</div>
+      <div><h4>Higher retention</h4><p>Enjoyable matches keep people using the app instead of quitting.</p></div>
+    </div>
+    <div class="card">
+      <div class="circle">4</div>
+      <div><h4>Real connections</h4><p>Users save people they connected well with as a buddy or favorite.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 6: Why This Is Investable -->
+<section class="slide dark" id="s6">
+  <div class="eyebrow">Why This Is Investable</div>
+  <h2>A simple idea with a compounding advantage</h2>
+  <div class="cols">
+    <div class="col">
+      <div class="circle">&#9733;</div>
+      <h4>Easy to explain</h4>
+      <p>One clear idea: interest-based matching instead of random matching.</p>
+    </div>
+    <div class="col">
+      <div class="circle">&#9733;</div>
+      <h4>Gets better over time</h4>
+      <p>The more people use it, the smarter and more valuable the matching becomes.</p>
+    </div>
+    <div class="col">
+      <div class="circle">&#9733;</div>
+      <h4>Proven concept, new use case</h4>
+      <p>Interest-based matching already works well elsewhere — we're applying it to real-time conversation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 7: Closing -->
+<section class="slide dark clip" id="s7">
+  <div class="blob a"></div>
+  <div class="blob b"></div>
+  <div class="content">
+    <div class="eyebrow">The Pitch</div>
+    <q>"We connect people based on shared interests, not random luck."</q>
+    <p class="sub">Better conversations. Longer sessions. Users who keep coming back — because they're never stuck talking to someone with nothing in common.</p>
+    <div class="cta">Let's talk</div>
+  </div>
+</section>
+
+</body>
+</html>

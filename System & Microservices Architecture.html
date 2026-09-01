@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Technical System Design — Interest-Based 1:1 Matching</title>
+<style>
+  @page { size: A4; margin: 0; }
+
+  :root {
+    --navy: #2F3C7E;
+    --darknavy: #1E2650;
+    --coral: #F96167;
+    --gold: #F9E795;
+    --teal: #2BB3A3;
+    --offwhite: #FFFBF5;
+    --gray: #5B5F73;
+    --line: #DCE1F0;
+    --card-navy: #2C3768;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Calibri, "Segoe UI", Arial, sans-serif;
+    color: #232634;
+    font-size: 10.3pt;
+    line-height: 1.45;
+  }
+
+  h1, h2, h3 { font-family: Cambria, Georgia, serif; font-weight: 700; }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 16mm 16mm 14mm;
+    position: relative;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  .dark { background: var(--darknavy); color: #fff; }
+  .light { background: var(--offwhite); color: #232634; }
+
+  .eyebrow {
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .light .eyebrow { color: var(--coral); }
+  .dark .eyebrow { color: var(--gold); }
+
+  .pagefoot {
+    position: absolute;
+    bottom: 10mm; left: 16mm; right: 16mm;
+    display: flex; justify-content: space-between;
+    font-size: 7.5pt; color: var(--gray);
+    letter-spacing: 0.5px;
+  }
+  .dark .pagefoot { color: #8991C4; }
+
+  /* ---------- Cover ---------- */
+  #cover { display: flex; flex-direction: column; justify-content: center; }
+  #cover .tag { color: var(--gold); font-size: 9pt; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px; }
+  #cover h1 { font-size: 30pt; line-height: 1.2; color: #fff; margin-bottom: 14px; max-width: 85%; }
+  #cover .sub { color: #CCD3EE; font-size: 12pt; font-style: italic; margin-bottom: 60px; max-width: 80%; }
+  #cover .meta { display: flex; gap: 40px; }
+  #cover .metaitem { font-size: 8.5pt; color: #8991C4; text-transform: uppercase; letter-spacing: 1.5px; }
+  #cover .metaitem .val { display: block; color: #fff; font-size: 10.5pt; text-transform: none; letter-spacing: 0; margin-top: 4px; font-family: Cambria, Georgia, serif; }
+  #cover .blob { position: absolute; border-radius: 50%; }
+  #cover .b1 { width: 300px; height: 300px; top: -120px; right: -100px; background: var(--coral); opacity: 0.15; }
+  #cover .b2 { width: 240px; height: 240px; bottom: -100px; left: -80px; background: var(--teal); opacity: 0.12; }
+
+  /* ---------- Generic section header ---------- */
+  .sec-title { font-size: 19pt; margin-bottom: 4px; }
+  .sec-desc { color: var(--gray); font-size: 9.5pt; max-width: 90%; margin-bottom: 20px; }
+  .dark .sec-desc { color: #B9C1E8; }
+
+  /* ---------- Diagram boxes ---------- */
+  .flow { display: flex; align-items: stretch; gap: 8px; margin: 14px 0 20px; flex-wrap: wrap; }
+  .box {
+    flex: 1; min-width: 90px;
+    background: #fff; border: 1.5px solid var(--line); border-radius: 8px;
+    padding: 10px 10px; text-align: center; display: flex; flex-direction: column; justify-content: center;
+  }
+  .box.navy { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .box.coral { background: var(--coral); color: #fff; border-color: var(--coral); }
+  .box.teal { background: var(--teal); color: #fff; border-color: var(--teal); }
+  .box .t { font-weight: 700; font-size: 9pt; margin-bottom: 2px; }
+  .box .d { font-size: 7.3pt; opacity: 0.9; }
+  .arrow { align-self: center; font-size: 14pt; color: var(--gray); font-weight: 700; padding: 0 2px; }
+
+  /* ---------- Service cards ---------- */
+  .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .svc-card { background: #fff; border: 1.5px solid var(--line); border-left: 5px solid var(--navy); border-radius: 8px; padding: 12px 14px; }
+  .svc-card.alt { border-left-color: var(--coral); }
+  .svc-card h3 { font-size: 10.5pt; color: var(--navy); margin-bottom: 4px; }
+  .svc-card .role { font-size: 8pt; color: var(--coral); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .svc-card p { font-size: 8.3pt; color: var(--gray); margin-bottom: 6px; }
+  .tagrow { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tagrow span { background: #EEF1FA; color: var(--navy); font-size: 7.2pt; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+
+  /* ---------- Numbered steps ---------- */
+  .steplist { counter-reset: step; }
+  .steplist .s { display: flex; gap: 10px; margin-bottom: 12px; }
+  .steplist .n { counter-increment: step; flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--coral); color: #fff; font-size: 9pt; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .steplist .n::before { content: counter(step); }
+  .steplist h4 { font-size: 9.5pt; color: var(--navy); margin-bottom: 2px; }
+  .dark .steplist h4 { color: var(--gold); }
+  .steplist p { font-size: 8.3pt; color: var(--gray); }
+  .dark .steplist p { color: #CCD3EE; }
+
+  /* ---------- Tables ---------- */
+  table { width: 100%; border-collapse: collapse; font-size: 8.2pt; margin-top: 10px; }
+  th { background: var(--navy); color: #fff; text-align: left; padding: 7px 9px; font-size: 7.8pt; text-transform: uppercase; letter-spacing: 0.4px; }
+  td { padding: 7px 9px; border-bottom: 1px solid var(--line); color: #3A3F55; vertical-align: top; }
+  tr:nth-child(even) td { background: #F7F8FC; }
+
+  /* ---------- Callout ---------- */
+  .callout { background: #FFF3E9; border-left: 4px solid var(--coral); border-radius: 6px; padding: 10px 14px; font-size: 8.3pt; color: #5B4030; margin-top: 14px; }
+  .callout b { color: var(--coral); }
+  .dark .callout { background: var(--card-navy); border-left-color: var(--gold); color: #E3E7F7; }
+  .dark .callout b { color: var(--gold); }
+
+  h2.h { font-size: 13pt; color: var(--navy); margin: 18px 0 8px; }
+  .dark h2.h { color: #fff; }
+  .small-note { font-size: 7.5pt; color: var(--gray); margin-top: 6px; }
+  .dark .small-note { color: #8991C4; }
+</style>
+</head>
+<body>
+
+<!-- ================= COVER ================= -->
+<section class="page dark" id="cover">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="tag">Technical Design Document</div>
+  <h1>Interest-Based 1:1 Matching Platform<br>System &amp; Microservices Architecture</h1>
+  <div class="sub">How the system is structured, how each microservice is built, and how AI feedback is served to many concurrent users.</div>
+  <div class="meta">
+    <div class="metaitem">Scope<span class="val">Backend architecture</span></div>
+    <div class="metaitem">Focus<span class="val">Design, not code</span></div>
+    <div class="metaitem">Version<span class="val">v1.0</span></div>
+  </div>
+</section>
+
+<!-- ================= 1. SYSTEM DESIGN OVERVIEW ================= -->
+<section class="page light">
+  <div class="eyebrow">01 · System Design</div>
+  <h1 class="sec-title">How the system is structured</h1>
+  <p class="sec-desc">A client-facing gateway routes traffic to independent microservices. Each service owns its own data and talks to the others through APIs and an event bus, so no single service can block the rest of the system.</p>
+
+  <div class="flow">
+    <div class="box navy"><div class="t">Client Apps</div><div class="d">Mobile / Web</div></div>
+    <div class="arrow">→</div>
+    <div class="box coral"><div class="t">API Gateway</div><div class="d">Auth, routing, rate limits</div></div>
+    <div class="arrow">→</div>
+    <div class="box teal"><div class="t">Microservices</div><div class="d">Independent, containerized</div></div>
+    <div class="arrow">→</div>
+    <div class="box navy"><div class="t">Data Layer</div><div class="d">DB per service + cache</div></div>
+  </div>
+
+  <h2 class="h">Core layers</h2>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="role">Edge</div>
+      <h3>API Gateway</h3>
+      <p>Single entry point for all clients. Handles authentication, request routing, rate limiting, and TLS termination before traffic reaches internal services.</p>
+      <div class="tagrow"><span>Kong / NGINX</span><span>JWT auth</span><span>Rate limiting</span></div>
+    </div>
+    <div class="svc-card alt">
+      <div class="role">Compute</div>
+      <h3>Microservices Layer</h3>
+      <p>Each business capability (auth, matching, sessions, AI feedback, notifications) runs as its own deployable service, scaled independently.</p>
+      <div class="tagrow"><span>Docker</span><span>Kubernetes</span><span>gRPC / REST</span></div>
+    </div>
+    <div class="svc-card">
+      <div class="role">Messaging</div>
+      <h3>Event Bus</h3>
+      <p>Services publish and subscribe to events (e.g. "session.ended") instead of calling each other directly, keeping them loosely coupled.</p>
+      <div class="tagrow"><span>Kafka</span><span>RabbitMQ</span><span>Async events</span></div>
+    </div>
+    <div class="svc-card alt">
+      <div class="role">Storage</div>
+      <h3>Data Layer</h3>
+      <p>Each service owns its own database (database-per-service). A shared cache speeds up frequent reads like online-user status.</p>
+      <div class="tagrow"><span>PostgreSQL</span><span>Redis</span><span>Object storage</span></div>
+    </div>
+  </div>
+
+  <div class="callout"><b>Design principle —</b> services never share a database. They communicate only through defined APIs or events, so any one service can be changed, redeployed, or scaled without touching the others.</div>
+
+  <div class="pagefoot"><span>Interest-Based 1:1 Matching — Technical Design</span><span>01</span></div>
+</section>
+
+<!-- ================= 2. MICROSERVICES BREAKDOWN ================= -->
+<section class="page light">
+  <div class="eyebrow">02 · Microservices</div>
+  <h1 class="sec-title">How each service is built</h1>
+  <p class="sec-desc">Every service follows the same pattern: a small, focused responsibility, its own datastore, a versioned API, and independent deployment.</p>
+
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="role">Identity</div>
+      <h3>Auth Service</h3>
+      <p>Signup, login, session tokens, and account security. Issues short-lived JWTs the gateway validates on every request.</p>
+      <div class="tagrow"><span>PostgreSQL</span><span>JWT / OAuth</span><span>bcrypt</span></div>
+    </div>
+    <div class="svc-card alt">
+      <div class="role">Profile</div>
+      <h3>User &amp; Interest Service</h3>
+      <p>Stores each user's chosen topics, language level, and preferences. Exposes an interest vector used by the matching engine.</p>
+      <div class="tagrow"><span>PostgreSQL</span><span>REST API</span><span>Interest tags</span></div>
+    </div>
+    <div class="svc-card">
+      <div class="role">Core logic</div>
+      <h3>Matching Service</h3>
+      <p>Maintains a pool of online users and pairs them by shared interest overlap rather than random availability. Publishes a "match.created" event.</p>
+      <div class="tagrow"><span>Redis (online pool)</span><span>Ranking algorithm</span><span>Event-driven</span></div>
+    </div>
+    <div class="svc-card alt">
+      <div class="role">Real-time</div>
+      <h3>Session / Conversation Service</h3>
+      <p>Handles the live 1:1 call: WebRTC signaling, room creation, and the 7- or 10-minute session timer. Emits "session.ended" with the recording/transcript reference.</p>
+      <div class="tagrow"><span>WebRTC</span><span>WebSockets</span><span>Timer worker</span></div>
+    </div>
+    <div class="svc-card">
+      <div class="role">Intelligence</div>
+      <h3>AI Feedback Service</h3>
+      <p>Consumes the session transcript/audio and returns pronunciation notes, a grammar summary, and the partner rating capture. Detailed in section 4.</p>
+      <div class="tagrow"><span>Speech-to-text</span><span>LLM inference</span><span>Async workers</span></div>
+    </div>
+    <div class="svc-card alt">
+      <div class="role">Engagement</div>
+      <h3>Notification Service</h3>
+      <p>Pushes match-found alerts, session reminders, and feedback-ready notifications to the client via push/WebSocket.</p>
+      <div class="tagrow"><span>Push (FCM/APNs)</span><span>WebSocket</span><span>Templating</span></div>
+    </div>
+  </div>
+
+  <h2 class="h">Build pattern used for every service</h2>
+  <div class="steplist">
+    <div class="s"><div class="n"></div><div><h4>Single responsibility</h4><p>Each service owns one business capability only — never split logic across services, never merge two capabilities into one.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Own datastore</h4><p>A private database per service. Other services never query it directly — only through the service's API.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Versioned API contract</h4><p>REST or gRPC endpoints, documented and versioned, so one service can change internally without breaking callers.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Containerized &amp; independently deployed</h4><p>Each service ships as its own Docker image, deployed and scaled on its own schedule via Kubernetes.</p></div></div>
+  </div>
+
+  <div class="pagefoot"><span>Interest-Based 1:1 Matching — Technical Design</span><span>02</span></div>
+</section>
+
+<!-- ================= 3. MATCHING FLOW ================= -->
+<section class="page light">
+  <div class="eyebrow">03 · Matching Flow</div>
+  <h1 class="sec-title">From online status to a live conversation</h1>
+  <p class="sec-desc">The Matching Service works off a live pool of online users rather than scanning the full user base on every request.</p>
+
+  <div class="flow">
+    <div class="box navy"><div class="t">User comes online</div><div class="d">Added to Redis pool with interests</div></div>
+    <div class="arrow">→</div>
+    <div class="box coral"><div class="t">Overlap search</div><div class="d">Find pool member with shared interest</div></div>
+    <div class="arrow">→</div>
+    <div class="box teal"><div class="t">Match event</div><div class="d">"match.created" published</div></div>
+    <div class="arrow">→</div>
+    <div class="box navy"><div class="t">Session created</div><div class="d">Room + timer started</div></div>
+  </div>
+
+  <h2 class="h">Why this scales</h2>
+  <table>
+    <tr><th>Concern</th><th>Approach</th></tr>
+    <tr><td>Finding a match fast</td><td>Online users live in an in-memory Redis structure keyed by interest tag, so lookups are O(1) per tag instead of scanning a SQL table.</td></tr>
+    <tr><td>No match available</td><td>User stays in the pool and is notified asynchronously the moment a compatible partner comes online — no blocking wait.</td></tr>
+    <tr><td>Fair pairing</td><td>A lightweight ranking step (interest overlap count, wait time) breaks ties so no user waits indefinitely.</td></tr>
+    <tr><td>Independent scaling</td><td>The Matching Service scales on its own — a traffic spike in matching never affects Auth or Notifications.</td></tr>
+  </table>
+
+  <div class="callout"><b>Session length —</b> once matched, the Session Service starts the room with a 7‑minute or 10‑minute timer (user-selected). At zero, the room closes automatically and the transcript is handed to the AI Feedback Service.</div>
+
+  <div class="pagefoot"><span>Interest-Based 1:1 Matching — Technical Design</span><span>03</span></div>
+</section>
+
+<!-- ================= 4. AI FEEDBACK AT SCALE ================= -->
+<section class="page dark">
+  <div class="eyebrow">04 · AI at Scale</div>
+  <h1 class="sec-title" style="color:#fff;">Handling AI responses for many concurrent users</h1>
+  <p class="sec-desc">Thousands of calls can end in the same minute. The AI Feedback Service is built so it never blocks a user's app waiting for a model to finish.</p>
+
+  <h2 class="h">The core problem</h2>
+  <p style="font-size:8.6pt; color:#CCD3EE; max-width:92%; margin-bottom:14px;">
+    Generating pronunciation and grammar feedback requires speech-to-text plus an LLM pass per session. If every ended call triggered an inference call synchronously, a burst of simultaneous endings would overload the model and stall the whole app.
+  </p>
+
+  <h2 class="h">The solution: queue, batch, and push</h2>
+  <div class="flow">
+    <div class="box coral"><div class="t">Session ends</div><div class="d">Transcript + audio ref</div></div>
+    <div class="arrow">→</div>
+    <div class="box navy"><div class="t">Job Queue</div><div class="d">One job per session</div></div>
+    <div class="arrow">→</div>
+    <div class="box teal"><div class="t">Worker Pool</div><div class="d">Auto-scales with queue depth</div></div>
+    <div class="arrow">→</div>
+    <div class="box navy"><div class="t">Model Inference</div><div class="d">Batched, GPU-backed</div></div>
+    <div class="arrow">→</div>
+    <div class="box coral"><div class="t">Push to user</div><div class="d">WebSocket / notification</div></div>
+  </div>
+
+  <div class="steplist">
+    <div class="s"><div class="n"></div><div><h4>Queue every request instead of calling the model directly</h4><p>Each finished session becomes a message on a queue (e.g. Kafka/SQS). The app immediately tells the user "feedback is on its way" — nothing waits on the model.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>A worker pool consumes the queue</h4><p>Stateless worker processes pull jobs, call speech-to-text, then the LLM. The number of workers auto-scales up or down based on how deep the queue is.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Requests are batched at the model layer</h4><p>Instead of one inference call per user, the model server groups several waiting requests into a single batched GPU pass, which uses hardware far more efficiently under load.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Per-user rate limiting and fairness</h4><p>A cap on concurrent jobs per user prevents any single user (or bug) from starving the queue for everyone else.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Caching common results</h4><p>Recurring grammar patterns and common mispronunciations are cached, so the model is only asked to analyze what's actually new.</p></div></div>
+    <div class="s"><div class="n"></div><div><h4>Results are pushed, not polled</h4><p>When a job completes, the result is pushed to the user over WebSocket (or a notification if offline) rather than the client repeatedly asking "is it ready yet?"</p></div></div>
+  </div>
+
+  <div class="pagefoot"><span>Interest-Based 1:1 Matching — Technical Design</span><span>04</span></div>
+</section>
+
+<!-- ================= 5. RELIABILITY & TECH STACK ================= -->
+<section class="page light">
+  <div class="eyebrow">05 · Reliability &amp; Stack</div>
+  <h1 class="sec-title">Keeping it resilient under load</h1>
+  <p class="sec-desc">Because services are independent, failure in one area shouldn't take down the rest of the platform.</p>
+
+  <table>
+    <tr><th>Risk</th><th>Mitigation</th></tr>
+    <tr><td>AI worker crashes mid-job</td><td>Jobs are re-queued automatically; failed jobs after N retries move to a dead-letter queue for review instead of being lost.</td></tr>
+    <tr><td>Matching Service overloaded</td><td>Horizontal autoscaling on the online-pool size; the gateway applies backpressure before it cascades to other services.</td></tr>
+    <tr><td>One service goes down</td><td>Circuit breakers stop callers from repeatedly hitting a failing service; the rest of the app (e.g. login) keeps working.</td></tr>
+    <tr><td>Sudden traffic spikes</td><td>Kubernetes horizontal pod autoscaling per service, driven by CPU and queue-depth metrics.</td></tr>
+    <tr><td>Silent failures</td><td>Centralized logging, tracing, and metrics (per service) so issues are caught before users notice.</td></tr>
+  </table>
+
+  <h2 class="h">Suggested technology stack</h2>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h3>Runtime &amp; Orchestration</h3>
+      <div class="tagrow"><span>Docker</span><span>Kubernetes</span><span>Helm</span></div>
+    </div>
+    <div class="svc-card alt">
+      <h3>Communication</h3>
+      <div class="tagrow"><span>REST / gRPC</span><span>Kafka</span><span>WebSocket</span></div>
+    </div>
+    <div class="svc-card">
+      <h3>Data</h3>
+      <div class="tagrow"><span>PostgreSQL</span><span>Redis</span><span>S3-compatible storage</span></div>
+    </div>
+    <div class="svc-card alt">
+      <h3>AI Layer</h3>
+      <div class="tagrow"><span>Speech-to-text API</span><span>LLM inference server</span><span>GPU worker pool</span></div>
+    </div>
+    <div class="svc-card">
+      <h3>Observability</h3>
+      <div class="tagrow"><span>Prometheus</span><span>Grafana</span><span>OpenTelemetry</span></div>
+    </div>
+    <div class="svc-card alt">
+      <h3>CI/CD</h3>
+      <div class="tagrow"><span>GitHub Actions</span><span>Per-service pipelines</span><span>Canary rollout</span></div>
+    </div>
+  </div>
+
+  <div class="small-note">This document focuses on architecture and design decisions, not implementation code. Each service can be built with any language/framework that fits the team, as long as it respects the API contract and data-ownership boundaries above.</div>
+
+  <div class="pagefoot"><span>Interest-Based 1:1 Matching — Technical Design</span><span>05</span></div>
+</section>
+
+</body>
+</html>

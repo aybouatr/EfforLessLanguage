@@ -1,0 +1,33 @@
+What's missing for TikTok-style long-term stickiness
+
+TikTok/social apps aren't sticky because of one feature — it's a stack of small habit-loops reinforcing each other. Here's what maps well onto your app:
+
+1. Streaks & daily reasons to return
+Duolingo's playbook. A visible streak counter for "days you had a conversation," with a soft reminder before it breaks. This alone is one of the strongest retention levers that exists — loss-aversion beats novelty.
+
+2. Variable reward, not fixed reward
+Right now matching is deterministic (shared interest + availability). Consider occasionally surfacing a "wildcard match" — someone slightly outside their usual interests, or a rare high-compatibility match — so users don't know exactly what they'll get each session. Unpredictability is what makes a feed addictive; predictable utility apps plateau.
+
+3. Progression & identity, not just utility
+Right now the value prop is purely functional ("have a good conversation"). Add a layer of identity: badges for topics mastered, a visible "conversation level," a public (opt-in) profile showing streaks/interests/languages practiced. People come back to protect an identity they've built, not just to get a service.
+
+4. Async content between live sessions
+Live-only apps have a hard ceiling on engagement (you can't call 20x/day). Add something to browse between calls — e.g., short async prompts, a "topic of the day" feed, clips/snippets from your best moments (like a highlight reel of a good exchange, auto-captioned), or a feed of interesting things your matched partners shared. This is what turns a 10-minute-a-day utility into a 45-minute-a-day habit.
+
+5. Push notification triggers tied to identity, not spam
+"Someone who shares 4/5 of your interests just came online" or "Your streak ends in 2 hours" land very differently than generic "come back!" pings — they're personalized enough to feel earned, not annoying.
+
+6. Social graph effects
+Saved buddies is a start. Add: see when a saved buddy is online, light "nudge" to reconnect, maybe a friends leaderboard on streaks/languages learned. Apps get sticky when leaving means leaving people, not just a service.
+
+7. Micro-competition / leaderboards
+Weekly leaderboard for most conversations, most languages practiced, or most "match again" ratings received. Doesn't need to be cutthroat — even a soft "top 10% this week" badge works.
+
+8. Post-session content loop
+The AI feedback step is a great place to hook people back in — e.g. "Here are 3 words you mispronounced this week" as a digestible recap notification, almost like a Spotify Wrapped moment but weekly.
+
+If I had to pick 3 to prototype first
+
+Streaks + save-buddy-online-notification + a weekly AI recap notification — these are cheap to build, don't require new content infrastructure, and hit the strongest psychological levers (loss aversion, social pull, personalized reward).
+
+Want me to mock up a slide (or two) for the deck showing an "Engagement & Retention Layer" section, in the same visual style as the rest — could slot right in after slide 5 or 6?
