@@ -1,0 +1,11 @@
+/src/UserProfileService.Data/bin/Debug/net8.0/UserProfileService.Data.deps.json
+/src/UserProfileService.Data/bin/Debug/net8.0/UserProfileService.Data.dll
+/src/UserProfileService.Data/bin/Debug/net8.0/UserProfileService.Data.pdb
+/src/UserProfileService.Data/obj/Debug/net8.0/UserProfileService.Data.GeneratedMSBuildEditorConfig.editorconfig
+/src/UserProfileService.Data/obj/Debug/net8.0/UserProfileService.Data.AssemblyInfoInputs.cache
+/src/UserProfileService.Data/obj/Debug/net8.0/UserProfileService.Data.AssemblyInfo.cs
+/src/UserProfileService.Data/obj/Debug/net8.0/UserProfileService.Data.csproj.CoreCompileInputs.cache
+/src/UserProfileService.Data/obj/Debug/net8.0/UserProfileService.Data.dll
+/src/UserProfileService.Data/obj/Debug/net8.0/refint/UserProfileService.Data.dll
+/src/UserProfileService.Data/obj/Debug/net8.0/UserProfileService.Data.pdb
+/src/UserProfileService.Data/obj/Debug/net8.0/ref/UserProfileService.Data.dll

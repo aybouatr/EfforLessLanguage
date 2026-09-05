@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "authservice.Busniss/1.0.0": {
+        "dependencies": {
+          "authservice.Data": "1.0.0"
+        },
+        "runtime": {
+          "authservice.Busniss.dll": {}
+        }
+      },
+      "authservice.Data/1.0.0": {
+        "runtime": {
+          "authservice.Data.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "authservice.Busniss/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "authservice.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

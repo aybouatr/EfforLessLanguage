@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "UserProfileService.Business/1.0.0": {
+        "dependencies": {
+          "UserProfileService.Data": "1.0.0"
+        },
+        "runtime": {
+          "UserProfileService.Business.dll": {}
+        }
+      },
+      "UserProfileService.Data/1.0.0": {
+        "runtime": {
+          "UserProfileService.Data.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "UserProfileService.Business/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UserProfileService.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

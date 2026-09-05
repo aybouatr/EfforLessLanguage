@@ -1,0 +1,19 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+WORKDIR /src
+
+COPY UserProfileService.sln .
+
+COPY UserProfileService.Api/UserProfileService.Api.csproj UserProfileService.Api/
+COPY UserProfileService.Business/UserProfileService.Business.csproj UserProfileService.Business/
+COPY UserProfileService.Data/UserProfileService.Data.csproj UserProfileService.Data/
+
+RUN dotnet restore
+
+COPY . .
+
+WORKDIR /src/UserProfileService.Api
+
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "watch", "run", "--urls", "http://0.0.0.0:8080"]

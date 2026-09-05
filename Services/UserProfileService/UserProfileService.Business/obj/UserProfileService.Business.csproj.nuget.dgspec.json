@@ -1,0 +1,128 @@
+{
+  "format": 1,
+  "restore": {
+    "/src/UserProfileService.Business/UserProfileService.Business.csproj": {}
+  },
+  "projects": {
+    "/src/UserProfileService.Business/UserProfileService.Business.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/src/UserProfileService.Business/UserProfileService.Business.csproj",
+        "projectName": "UserProfileService.Business",
+        "projectPath": "/src/UserProfileService.Business/UserProfileService.Business.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/src/UserProfileService.Business/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/root/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/src/UserProfileService.Data/UserProfileService.Data.csproj": {
+                "projectPath": "/src/UserProfileService.Data/UserProfileService.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.424/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/src/UserProfileService.Data/UserProfileService.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/src/UserProfileService.Data/UserProfileService.Data.csproj",
+        "projectName": "UserProfileService.Data",
+        "projectPath": "/src/UserProfileService.Data/UserProfileService.Data.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/src/UserProfileService.Data/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/root/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.424/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
