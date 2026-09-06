@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/aybouatr/EffertLessEnglish/Services/Auth Service/AuthService.csproj": {}
+    "/home/aybouatr/MyWork/EfforLessLanguage/Services/Auth Service/AuthService.csproj": {}
   },
   "projects": {
-    "/home/aybouatr/EffertLessEnglish/Services/Auth Service/AuthService.csproj": {
+    "/home/aybouatr/MyWork/EfforLessLanguage/Services/Auth Service/AuthService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/aybouatr/EffertLessEnglish/Services/Auth Service/AuthService.csproj",
+        "projectUniqueName": "/home/aybouatr/MyWork/EfforLessLanguage/Services/Auth Service/AuthService.csproj",
         "projectName": "AuthService",
-        "projectPath": "/home/aybouatr/EffertLessEnglish/Services/Auth Service/AuthService.csproj",
+        "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/Auth Service/AuthService.csproj",
         "packagesPath": "/home/aybouatr/.nuget/packages/",
-        "outputPath": "/home/aybouatr/EffertLessEnglish/Services/Auth Service/obj/",
+        "outputPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/Auth Service/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/aybouatr/.nuget/NuGet/NuGet.Config"

@@ -1,3 +1,83 @@
+archect
+
+EfforLessLanguage/
+│
+├── Services/
+│
+│   ├── UserProfileService/
+│   │   │
+│   │   ├── UserProfileService.Api/
+│   │   │
+│   │   ├── UserProfileService.Business/
+│   │   │
+│   │   ├── UserProfileService.Data/
+│   │   │
+│   │   └── UserProfileService.Infrastructure/
+│   │
+│   ├── MatchingService/
+│   │   │
+│   │   ├── MatchingService.Api/
+│   │   ├── MatchingService.Business/
+│   │   └── MatchingService.Infrastructure/
+│   │
+│   └── SessionService/
+│       │
+│       ├── SessionService.Api/
+│       ├── SessionService.Business/
+│       └── SessionService.Infrastructure/
+│
+└── Contracts/
+    │
+    └── Grpc/
+        ├── userprofile.proto
+        ├── matching.proto
+        └── session.proto
+
+
+
+==> My Service :
+
+UserProfileService/
+│
+├── UserProfileService.Api/
+│   │
+│   ├── Controllers/
+│   │   └── UsersController.cs
+│   │
+│   └── Program.cs
+│
+├── UserProfileService.Business/
+│   │
+│   ├── StudentService.cs
+│   ├── PersonService.cs
+│   └── ...
+│
+├── UserProfileService.Data/
+│   │
+│   ├── Entities/
+│   │   ├── Student.cs
+│   │   ├── Person.cs
+│   │   ├── Identity.cs
+│   │   ├── Nationality.cs
+│   │   ├── Language.cs
+│   │   ├── Interest.cs
+│   │   ├── Friend.cs
+│   │   ├── Conversation.cs
+│   │   ├── Message.cs
+│   │   └── ...
+│   │
+│   └── Database/
+│       └── DbConnectionFactory.cs
+│
+└── UserProfileService.Infrastructure/
+    │
+    ├── Grpc/
+    │   └── ...
+    │
+    └── Messaging/
+        └── ...
+
+--------------------------------------------------------------------------------
 What's missing for TikTok-style long-term stickiness
 
 TikTok/social apps aren't sticky because of one feature — it's a stack of small habit-loops reinforcing each other. Here's what maps well onto your app:
@@ -30,4 +110,4 @@ If I had to pick 3 to prototype first
 
 Streaks + save-buddy-online-notification + a weekly AI recap notification — these are cheap to build, don't require new content infrastructure, and hit the strongest psychological levers (loss aversion, social pull, personalized reward).
 
-Want me to mock up a slide (or two) for the deck showing an "Engagement & Retention Layer" section, in the same visual style as the rest — could slot right in after slide 5 or 6?
+Want me to mock up a slide (or two) for the deck showing an "Engagement & Retention Layer" section, in the same visual style as the rest — could slot right in after slide 5 or 6? 

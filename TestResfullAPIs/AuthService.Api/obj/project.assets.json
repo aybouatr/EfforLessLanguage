@@ -8,14 +8,10 @@
           "Microsoft.OpenApi": "1.4.3"
         },
         "compile": {
-          "lib/net8.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "related": ".xml"
-          }
+          "lib/net8.0/Microsoft.AspNetCore.OpenApi.dll": {}
         },
         "runtime": {
-          "lib/net8.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "related": ".xml"
-          }
+          "lib/net8.0/Microsoft.AspNetCore.OpenApi.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -521,11 +517,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/aybouatr/EffertLessEnglish/TestResfullAPIs/AuthService.Api/AuthService.Api.csproj",
+      "projectUniqueName": "/home/aybouatr/MyWork/EfforLessLanguage/TestResfullAPIs/AuthService.Api/AuthService.Api.csproj",
       "projectName": "AuthService.Api",
-      "projectPath": "/home/aybouatr/EffertLessEnglish/TestResfullAPIs/AuthService.Api/AuthService.Api.csproj",
+      "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/TestResfullAPIs/AuthService.Api/AuthService.Api.csproj",
       "packagesPath": "/home/aybouatr/.nuget/packages/",
-      "outputPath": "/home/aybouatr/EffertLessEnglish/TestResfullAPIs/AuthService.Api/obj/",
+      "outputPath": "/home/aybouatr/MyWork/EfforLessLanguage/TestResfullAPIs/AuthService.Api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/aybouatr/.nuget/NuGet/NuGet.Config"
@@ -540,8 +536,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/aybouatr/EffertLessEnglish/TestResfullAPIs/authservice.Busniss/authservice.Busniss.csproj": {
-              "projectPath": "/home/aybouatr/EffertLessEnglish/TestResfullAPIs/authservice.Busniss/authservice.Busniss.csproj"
+            "/home/aybouatr/MyWork/EfforLessLanguage/TestResfullAPIs/authservice.Busniss/authservice.Busniss.csproj": {
+              "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/TestResfullAPIs/authservice.Busniss/authservice.Busniss.csproj"
             }
           }
         }

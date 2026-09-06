@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/aybouatr/EffertLessEnglish/TestResfullAPIs/authservice.Data/authservice.Data.csproj",
+      "projectUniqueName": "/home/aybouatr/MyWork/EfforLessLanguage/TestResfullAPIs/authservice.Data/authservice.Data.csproj",
       "projectName": "authservice.Data",
-      "projectPath": "/home/aybouatr/EffertLessEnglish/TestResfullAPIs/authservice.Data/authservice.Data.csproj",
+      "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/TestResfullAPIs/authservice.Data/authservice.Data.csproj",
       "packagesPath": "/home/aybouatr/.nuget/packages/",
-      "outputPath": "/home/aybouatr/EffertLessEnglish/TestResfullAPIs/authservice.Data/obj/",
+      "outputPath": "/home/aybouatr/MyWork/EfforLessLanguage/TestResfullAPIs/authservice.Data/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/aybouatr/.nuget/NuGet/NuGet.Config"

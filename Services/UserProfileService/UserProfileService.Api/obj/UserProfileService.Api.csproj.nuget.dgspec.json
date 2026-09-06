@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/src/UserProfileService.Api/UserProfileService.Api.csproj": {}
+    "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Api/UserProfileService.Api.csproj": {}
   },
   "projects": {
-    "/src/UserProfileService.Api/UserProfileService.Api.csproj": {
+    "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Api/UserProfileService.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/src/UserProfileService.Api/UserProfileService.Api.csproj",
+        "projectUniqueName": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Api/UserProfileService.Api.csproj",
         "projectName": "UserProfileService.Api",
-        "projectPath": "/src/UserProfileService.Api/UserProfileService.Api.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/src/UserProfileService.Api/obj/",
+        "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Api/UserProfileService.Api.csproj",
+        "packagesPath": "/home/aybouatr/.nuget/packages/",
+        "outputPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/home/aybouatr/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -26,11 +26,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/src/UserProfileService.Business/UserProfileService.Business.csproj": {
-                "projectPath": "/src/UserProfileService.Business/UserProfileService.Business.csproj"
+              "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Business/UserProfileService.Business.csproj": {
+                "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Business/UserProfileService.Business.csproj"
               },
-              "/src/UserProfileService.Data/UserProfileService.Data.csproj": {
-                "projectPath": "/src/UserProfileService.Data/UserProfileService.Data.csproj"
+              "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj": {
+                "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj"
               }
             }
           }
@@ -78,21 +78,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.424/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/256/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/src/UserProfileService.Business/UserProfileService.Business.csproj": {
+    "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Business/UserProfileService.Business.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/src/UserProfileService.Business/UserProfileService.Business.csproj",
+        "projectUniqueName": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Business/UserProfileService.Business.csproj",
         "projectName": "UserProfileService.Business",
-        "projectPath": "/src/UserProfileService.Business/UserProfileService.Business.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/src/UserProfileService.Business/obj/",
+        "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Business/UserProfileService.Business.csproj",
+        "packagesPath": "/home/aybouatr/.nuget/packages/",
+        "outputPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Business/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/home/aybouatr/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -104,8 +104,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/src/UserProfileService.Data/UserProfileService.Data.csproj": {
-                "projectPath": "/src/UserProfileService.Data/UserProfileService.Data.csproj"
+              "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj": {
+                "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj"
               }
             }
           }
@@ -140,21 +140,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.424/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/256/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/src/UserProfileService.Data/UserProfileService.Data.csproj": {
+    "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/src/UserProfileService.Data/UserProfileService.Data.csproj",
+        "projectUniqueName": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj",
         "projectName": "UserProfileService.Data",
-        "projectPath": "/src/UserProfileService.Data/UserProfileService.Data.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/src/UserProfileService.Data/obj/",
+        "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj",
+        "packagesPath": "/home/aybouatr/.nuget/packages/",
+        "outputPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/home/aybouatr/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -182,6 +182,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Npgsql": {
+              "target": "Package",
+              "version": "[10.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -198,7 +204,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.424/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/256/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
