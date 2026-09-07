@@ -715,19 +715,19 @@
     ]
   },
   "packageFolders": {
-    "/home/aybouatr/.nuget/packages/": {}
+    "/root/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Api/UserProfileService.Api.csproj",
+      "projectUniqueName": "/src/UserProfileService.Api/UserProfileService.Api.csproj",
       "projectName": "UserProfileService.Api",
-      "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Api/UserProfileService.Api.csproj",
-      "packagesPath": "/home/aybouatr/.nuget/packages/",
-      "outputPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Api/obj/",
+      "projectPath": "/src/UserProfileService.Api/UserProfileService.Api.csproj",
+      "packagesPath": "/root/.nuget/packages/",
+      "outputPath": "/src/UserProfileService.Api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/aybouatr/.nuget/NuGet/NuGet.Config"
+        "/root/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -739,11 +739,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Business/UserProfileService.Business.csproj": {
-              "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Business/UserProfileService.Business.csproj"
+            "/src/UserProfileService.Business/UserProfileService.Business.csproj": {
+              "projectPath": "/src/UserProfileService.Business/UserProfileService.Business.csproj"
             },
-            "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj": {
-              "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj"
+            "/src/UserProfileService.Data/UserProfileService.Data.csproj": {
+              "projectPath": "/src/UserProfileService.Data/UserProfileService.Data.csproj"
             }
           }
         }
@@ -791,7 +791,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/256/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.424/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

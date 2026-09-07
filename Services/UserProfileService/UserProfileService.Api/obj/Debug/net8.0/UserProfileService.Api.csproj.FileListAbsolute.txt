@@ -35,3 +35,5 @@
 /src/UserProfileService.Api/obj/Debug/net8.0/UserProfileService.Api.pdb
 /src/UserProfileService.Api/obj/Debug/net8.0/UserProfileService.Api.genruntimeconfig.cache
 /src/UserProfileService.Api/obj/Debug/net8.0/ref/UserProfileService.Api.dll
+/src/UserProfileService.Api/bin/Debug/net8.0/Npgsql.dll
+/src/UserProfileService.Api/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
