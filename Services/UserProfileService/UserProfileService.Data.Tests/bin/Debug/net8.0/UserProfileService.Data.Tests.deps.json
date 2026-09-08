@@ -9,6 +9,7 @@
       "UserProfileService.Data.Tests/1.0.0": {
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "17.8.0",
+          "UserProfileService.Business": "1.0.0",
           "UserProfileService.Data": "1.0.0",
           "coverlet.collector": "6.0.0",
           "xunit": "2.5.3",
@@ -1051,6 +1052,17 @@
         }
       },
       "xunit.runner.visualstudio/2.5.3": {},
+      "UserProfileService.Business/1.0.0": {
+        "dependencies": {
+          "UserProfileService.Data": "1.0.0"
+        },
+        "runtime": {
+          "UserProfileService.Business.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "UserProfileService.Data/1.0.0": {
         "dependencies": {
           "Npgsql": "10.0.3"
@@ -1713,6 +1725,11 @@
       "sha512": "sha512-HFFL6O+QLEOfs555SqHii48ovVa4CqGYanY+B32BjLpPptdE+wEJmCFNXlLHdEOD5LYeayb9EroaUpydGpcybg==",
       "path": "xunit.runner.visualstudio/2.5.3",
       "hashPath": "xunit.runner.visualstudio.2.5.3.nupkg.sha512"
+    },
+    "UserProfileService.Business/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "UserProfileService.Data/1.0.0": {
       "type": "project",

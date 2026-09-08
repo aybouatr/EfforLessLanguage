@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj": {}
+    "/src/UserProfileService.Data/UserProfileService.Data.csproj": {}
   },
   "projects": {
-    "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj": {
+    "/src/UserProfileService.Data/UserProfileService.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj",
+        "projectUniqueName": "/src/UserProfileService.Data/UserProfileService.Data.csproj",
         "projectName": "UserProfileService.Data",
-        "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj",
-        "packagesPath": "/home/aybouatr/.nuget/packages/",
-        "outputPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/obj/",
+        "projectPath": "/src/UserProfileService.Data/UserProfileService.Data.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/src/UserProfileService.Data/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/aybouatr/.nuget/NuGet/NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -64,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/256/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.424/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

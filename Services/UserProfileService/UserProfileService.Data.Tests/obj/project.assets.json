@@ -1757,6 +1757,19 @@
           "build/net6.0/xunit.runner.visualstudio.props": {}
         }
       },
+      "UserProfileService.Business/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "UserProfileService.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/UserProfileService.Business.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UserProfileService.Business.dll": {}
+        }
+      },
       "UserProfileService.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -5689,6 +5702,11 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
+    "UserProfileService.Business/1.0.0": {
+      "type": "project",
+      "path": "../UserProfileService.Business/UserProfileService.Business.csproj",
+      "msbuildProject": "../UserProfileService.Business/UserProfileService.Business.csproj"
+    },
     "UserProfileService.Data/1.0.0": {
       "type": "project",
       "path": "../UserProfileService.Data/UserProfileService.Data.csproj",
@@ -5698,6 +5716,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.NET.Test.Sdk >= 17.8.0",
+      "UserProfileService.Business >= 1.0.0",
       "UserProfileService.Data >= 1.0.0",
       "coverlet.collector >= 6.0.0",
       "xunit >= 2.5.3",
@@ -5729,6 +5748,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Business/UserProfileService.Business.csproj": {
+              "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Business/UserProfileService.Business.csproj"
+            },
             "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj": {
               "projectPath": "/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data/UserProfileService.Data.csproj"
             }

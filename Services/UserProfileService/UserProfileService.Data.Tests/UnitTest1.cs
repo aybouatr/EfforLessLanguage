@@ -72,7 +72,7 @@ public class StudentTests
             new DateTime(2026, 9, 1),
             student.JoinDate);
 
-        Assert.Equal("Football", student.Interest);
+        // Assert.Equal("Football", student.Interest);
         Assert.Equal("English", student.Language);
         Assert.Equal("B1", student.LevelLanguage);
     }

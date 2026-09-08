@@ -1,41 +1,41 @@
 using System;
 using System.Data;
 using DataAccessLayer;
+using Npgsql;
 
 namespace DataAccesLayer
 {
     
     public class PersonDTO
     {
-        public int person_id { get; set; }
 
-        public int IdIdentity { get; set; }
-
+        // id FirstName Last Name birthday native_language email phone_number fr_nationality
+        public int id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
-
+        public int FK_Native_Language { get; set; }
         public string PhoneNumber { get; set; }
+        public int FK_Nationality { get; set; }
 
-        public string Nationality { get; set; }
-
-        public PersonDTO( int person_id, int IdIdentity,string firstName, string lastName, string email, DateTime dateOfBirth, string phoneNumber,       string       nationality)
+        public PersonDTO( int person_id,string firstName, string lastName,int nativeLanguage ,string email, DateTime dateOfBirth, string phoneNumber,int   nationality)
         {
-            this.person_id = person_id;
-            this.IdIdentity = IdIdentity;
+            this.id = person_id;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Email = email;
+            this.FK_Native_Language = nativeLanguage;
             this.DateOfBirth = dateOfBirth;
             this.PhoneNumber = phoneNumber;
-            this.Nationality = nationality;
+            this.FK_Nationality = nationality;
         }
        
     }
    
     public class Person
     {
+
         public static bool GetPersonById(int id, out PersonDTO person)
         {
             person = null;
@@ -47,20 +47,21 @@ namespace DataAccesLayer
                 using (var command = new Npgsql.NpgsqlCommand("SELECT * FROM persons WHERE id = @id", connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
-                    // //person_id Id Identity FirstName Last Name birthday email phone_number nationality 
+                    // id FirstName Last Name birthday native_language email phone_number fr_nationality
                     using (var reader = command.ExecuteReader())
                     {
+                        //  int person_id,string firstName, string lastName,int nativeLanguage ,string email, DateTime dateOfBirth, string phoneNumber,int   nationality
                         if (reader.Read())
                         {
                             person = new PersonDTO(
-                                reader.GetInt32(reader.GetOrdinal("IdPerson")),
-                                reader.GetInt32(reader.GetOrdinal("IdIdentity")),
+                                reader.GetInt32(reader.GetOrdinal("id")),
                                 reader.GetString(reader.GetOrdinal("FirstName")),
                                 reader.GetString(reader.GetOrdinal("LastName")),
+                                reader.GetInt32(reader.GetOrdinal("native_language")),
                                 reader.GetString(reader.GetOrdinal("email")),
-                                reader.GetDateTime(reader.GetOrdinal("date_of_birth")),
+                                reader.GetDateTime(reader.GetOrdinal("birthday")),
                                 reader.GetString(reader.GetOrdinal("phone_number")),
-                                reader.GetString(reader.GetOrdinal("nationality"))
+                                reader.GetInt32(reader.GetOrdinal("fr_nationality"))
                             );
                             return true;
                         }
@@ -68,6 +69,25 @@ namespace DataAccesLayer
                 }
             }
 
+            return false;
+        }
+
+        public static bool IsExistingPerson(int id)
+        {
+            using (var connection = new Npgsql.NpgsqlConnection(SettingDataAccessConnectionString.ConnectionString))
+            {
+                connection.Open();
+
+                using (var command = new Npgsql.NpgsqlCommand("SELECT COUNT(*) FROM persons WHERE id = @id", connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    if (count > 0)
+                    {
+                        return true;
+                    }
+                }
+            } 
             return false;
         }
 
@@ -89,6 +109,71 @@ namespace DataAccesLayer
                 }
             }
         }
+    
+        public static bool UpdatePerson(NpgsqlTransaction transaction,NpgsqlConnection connection,string query  ,string firstName, string lastName, string email, DateTime dateOfBirth, long id)
+        {
+            using (var command = new Npgsql.NpgsqlCommand(query, connection, transaction))
+            {
+                command.Parameters.AddWithValue("@firstName", firstName);
+                command.Parameters.AddWithValue("@lastName", lastName);
+                command.Parameters.AddWithValue("@email", email);
+                command.Parameters.AddWithValue("@dateOfBirth", dateOfBirth);
+                command.Parameters.AddWithValue("@id", id);
+
+                int rowsAffected = command.ExecuteNonQuery();
+                return rowsAffected > 0;
+            }
+        }
+
+        public static int AddNewPerson(NpgsqlTransaction transaction,NpgsqlConnection connection,string query  ,string firstName, string lastName, string email, DateTime dateOfBirth)
+        {
+            using (var command = new Npgsql.NpgsqlCommand(query, connection, transaction))
+            {
+                command.Parameters.AddWithValue("@firstName", firstName);
+                command.Parameters.AddWithValue("@lastName", lastName);
+                command.Parameters.AddWithValue("@email", email);
+                command.Parameters.AddWithValue("@dateOfBirth", dateOfBirth);
+
+                int rowsAffected = command.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    // Retrieve the ID of the newly inserted person
+                    command.CommandText = "SELECT LASTVAL()";
+                    int newPersonId = Convert.ToInt32(command.ExecuteScalar());
+                    return newPersonId;
+                }
+                else
+                {
+                    return -1; // Indicate failure to insert
+                }
+            }
+        }
+
+        public static bool DeletePerson(int id)
+        {
+            using (var connection = new Npgsql.NpgsqlConnection(SettingDataAccessConnectionString.ConnectionString))
+            {
+                connection.Open();
+
+                using (var command = new Npgsql.NpgsqlCommand("DELETE FROM persons WHERE id = @id", connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+        public static bool DeletePerson()
+        {
+            return true;
+        }
+
     }
+
+
+
 }
+
 

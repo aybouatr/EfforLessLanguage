@@ -6,34 +6,25 @@ using DataAccesLayer;
 namespace StudentProfileService.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/Profile")]
 public class StudentProfileController : ControllerBase
 {
-    // ==========================================
-    // GET: api/StudentProfile
-    // ==========================================
-
-    [HttpGet (Name = "GetStudents")]
+    [HttpGet(Name = "GetStudents")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetStudents()
     {
-        var students = StudentService.GetStudents();
+        List<StudentDTO> students = StudentService.GetStudents();
 
-        if (students.Count == 0)
+        if (students.Count > 0)
         {
-            return NotFound("No students found.");
+            return Ok(students);
         }
 
-        return Ok(students);
+        return NotFound("No students found.");
     }
 
-
-    // ==========================================
-    // GET: api/StudentProfile/{id}
-    // ==========================================
-
-    [HttpGet("{id:long}")]
+    [HttpGet("{id:long}", Name = "GetStudentById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -44,12 +35,61 @@ public class StudentProfileController : ControllerBase
             return BadRequest("Invalid student ID.");
         }
 
-        StudentDTO? student = StudentService.Find(id);
+        StudentDTO? student = StudentService.FindSTO(id);
 
         if (student == null)
         {
-            return NotFound(
-                $"Student with ID {id} not found.");
+            return NotFound($"Student with ID {id}  not found.");
+        }
+
+        return Ok(student);
+    }
+
+    [HttpPut("{id:long}", Name = "UpdateStudent")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public IActionResult UpdateStudent(long id, [FromBody] StudentDTO student)
+    {
+        if (id <= 0)
+        {
+            return BadRequest("Invalid student ID.");
+        }
+
+        if (student == null)
+        {
+            return BadRequest("Student data is required.");
+        }
+
+        if (student.Id != id)
+        {
+            return BadRequest("Student ID in the URL does not match the student ID.");
+        }
+
+        var existingStudent = StudentService.Find(id);
+
+        if (existingStudent == null)
+        {
+            return NotFound($"Student with ID {id} not found.");
+        }
+
+        existingStudent.FirstName = student.FirstName;
+        existingStudent.LastName = student.LastName;
+        existingStudent.Email = student.Email;
+        existingStudent.PhoneNumber = student.PhoneNumber;
+        existingStudent.Birthday = student.Birthday;
+        existingStudent.JoinDate = student.JoinDate;
+        existingStudent.Interest = student.Interest;
+        existingStudent.Language = student.Language;
+        existingStudent.LevelLanguage = student.LevelLanguage;
+
+
+        bool result = existingStudent.Save();
+
+        if (!result)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Failed to update the student profile.");
         }
 
         return Ok(student);

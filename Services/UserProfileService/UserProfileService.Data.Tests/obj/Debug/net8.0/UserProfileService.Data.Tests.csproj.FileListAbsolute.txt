@@ -1,4 +1,10 @@
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/CoverletSourceRootsMapping_UserProfileService.Data.Tests
+/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.csproj.AssemblyReference.cache
+/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.GeneratedMSBuildEditorConfig.editorconfig
+/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.AssemblyInfoInputs.cache
+/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.AssemblyInfo.cs
+/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.csproj.CoreCompileInputs.cache
+/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.sourcelink.json
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/xunit.runner.reporters.netcoreapp10.dll
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/xunit.runner.utility.netcoreapp10.dll
@@ -90,14 +96,10 @@
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/UserProfileService.Business.dll
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/UserProfileService.Data.dll
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/UserProfileService.Data.pdb
-/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.csproj.AssemblyReference.cache
-/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.GeneratedMSBuildEditorConfig.editorconfig
-/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.AssemblyInfoInputs.cache
-/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.AssemblyInfo.cs
-/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.csproj.CoreCompileInputs.cache
-/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.sourcelink.json
+/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/bin/Debug/net8.0/UserProfileService.Business.pdb
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProf.0120F76F.Up2Date
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/UserProfileService.Data.Tests.dll
 /home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Data.Tests/obj/Debug/net8.0/refint/UserProfileService.Data.Tests.dll
