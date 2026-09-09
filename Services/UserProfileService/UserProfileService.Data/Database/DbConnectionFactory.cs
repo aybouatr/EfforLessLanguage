@@ -2,9 +2,9 @@ using System;
 using System.Data;
 using Npgsql;
 
-namespace DataAccessLayer
+namespace DataAccessLayerSetting
 {
-    public class SettingDataAccessConnectionString
+    public static class SettingDataAccessConnectionString
     {
         // for API 
         public static string ConnectionString =

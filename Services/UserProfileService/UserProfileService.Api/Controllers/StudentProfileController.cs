@@ -45,53 +45,33 @@ public class StudentProfileController : ControllerBase
         return Ok(student);
     }
 
-    [HttpPut("{id:long}", Name = "UpdateStudent")]
+    [HttpPut("{id:long}", Name = "UpdateStudent")] 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public IActionResult UpdateStudent(long id, [FromBody] StudentDTO student)
     {
-        if (id <= 0)
+        if (id <= 0 || student == null || id != student.Id)
         {
-            return BadRequest("Invalid student ID.");
+            return BadRequest("Invalid student ID or student data.");
         }
-
-        if (student == null)
-        {
-            return BadRequest("Student data is required.");
-        }
-
-        if (student.Id != id)
-        {
-            return BadRequest("Student ID in the URL does not match the student ID.");
-        }
-
-        var existingStudent = StudentService.Find(id);
-
+         StudentService? existingStudent = StudentService.Find(id);
         if (existingStudent == null)
         {
             return NotFound($"Student with ID {id} not found.");
         }
-
-        existingStudent.FirstName = student.FirstName;
-        existingStudent.LastName = student.LastName;
-        existingStudent.Email = student.Email;
-        existingStudent.PhoneNumber = student.PhoneNumber;
-        existingStudent.Birthday = student.Birthday;
         existingStudent.JoinDate = student.JoinDate;
-        existingStudent.Interest = student.Interest;
-        existingStudent.Language = student.Language;
-        existingStudent.LevelLanguage = student.LevelLanguage;
-
-
-        bool result = existingStudent.Save();
-
-        if (!result)
+        existingStudent.Persone = student.Person;
+        existingStudent.interst = student.Interest;
+        existingStudent.PassWord = student.PassWord;
+        existingStudent.InfoTargetLanguage = student.infoTargetLanguage;
+        if(existingStudent.Save())
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, "Failed to update the student profile.");
+             return Ok(existingStudent);
         }
+       return StatusCode(StatusCodes.Status500InternalServerError, "Failed to update the student.");
 
-        return Ok(student);
+        
     }
 }
