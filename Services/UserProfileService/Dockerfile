@@ -14,7 +14,7 @@ COPY UserProfileService.Business/UserProfileService.Business.csproj UserProfileS
 COPY UserProfileService.Data/UserProfileService.Data.csproj UserProfileService.Data/
 
 # Restore dependencies
-RUN dotnet restore
+RUN dotnet restore UserProfileService.Api/UserProfileService.Api.csproj`
 
 # Copy the rest of the source code
 COPY . .

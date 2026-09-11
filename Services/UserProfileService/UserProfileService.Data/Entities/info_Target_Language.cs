@@ -368,42 +368,29 @@ namespace DataAccesLayer
                 return rowsAffected > 0;
             }
         }
-        public static bool DeleteInfoTargetLanguageById(long id)
+        
+        
+        
+        public static bool DeleteInfoTargetLanguageById(long id,NpgsqlTransaction transaction,NpgsqlConnection connection)
         {
-            using (var connection = new NpgsqlConnection(
-                SettingDataAccessConnectionString.ConnectionString))
+            string query = @"
+                DELETE FROM ""info_Target_languge""
+                WHERE id = @id;
+            ";
+
+            using (var command = new NpgsqlCommand(
+                query,
+                connection,
+                transaction))
             {
-                connection.Open();
+                command.Parameters.AddWithValue(
+                    "@id",
+                    id);
 
-                string query = @"
-                    DELETE FROM ""info_Target_languge""
-                    WHERE id = @id;
-                ";
+                int rowsAffected =
+                    command.ExecuteNonQuery();
 
-                using (var command = new NpgsqlCommand(
-                    query,
-                    connection))
-                {
-                    try
-                    {
-                        command.Parameters.AddWithValue(
-                            "@id",
-                            id);
-
-                        int rowsAffected =
-                            command.ExecuteNonQuery();
-
-                        return rowsAffected > 0;
-                    }
-                    catch (PostgresException ex)
-                        when (ex.SqlState == "23503")
-                    {
-                        Console.WriteLine(
-                            "Cannot delete this record because it is used by another table.");
-
-                        return false;
-                    }
-                }
+                return rowsAffected > 0;
             }
         }
     

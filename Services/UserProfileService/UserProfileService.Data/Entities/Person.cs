@@ -10,7 +10,7 @@ namespace DataAccesLayer
     {
 
         // id FirstName Last Name birthday native_language email phone_number fr_nationality
-        public int id { get; set; }
+        public long id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -19,7 +19,7 @@ namespace DataAccesLayer
         public string PhoneNumber { get; set; }
         public NationalityDTO? Nationality { get; set; }
 
-        public PersonDTO(int person_id, string firstName, string lastName, LanguageDTO nativeLanguage, string email, DateTime dateOfBirth, NationalityDTO nationality, string phoneNumber)
+        public PersonDTO(long person_id, string firstName, string lastName, LanguageDTO nativeLanguage, string email, DateTime dateOfBirth, NationalityDTO nationality, string phoneNumber)
         {
                 if (nativeLanguage == null)
                 {
@@ -202,6 +202,20 @@ namespace DataAccesLayer
             }
         }
 
+        public static bool DeletePersonById(long id, NpgsqlTransaction transaction, NpgsqlConnection connection)
+        {
+            string query = @"
+                DELETE FROM person
+                WHERE id = @id;
+            ";
+
+            using (var command = new Npgsql.NpgsqlCommand(query, connection, transaction))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                int rowsAffected = command.ExecuteNonQuery();
+                return rowsAffected > 0;
+            }
+        }
 
     }
 

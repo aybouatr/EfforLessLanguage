@@ -77,3 +77,7 @@
 /src/UserProfileService.Api/obj/Debug/net8.0/UserProfileService.Api.pdb
 /src/UserProfileService.Api/obj/Debug/net8.0/UserProfileService.Api.genruntimeconfig.cache
 /src/UserProfileService.Api/obj/Debug/net8.0/ref/UserProfileService.Api.dll
+/src/UserProfileService.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/src/UserProfileService.Api/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/home/aybouatr/MyWork/EfforLessLanguage/Services/UserProfileService/UserProfileService.Api/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll

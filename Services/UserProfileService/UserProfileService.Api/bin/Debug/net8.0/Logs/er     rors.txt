@@ -1,0 +1,39 @@
+[2026-09-11 17:20:53] DATA ERROR: System.InvalidOperationException: Level language  does not exist.
+   at DataAccesLayer.Student.AddNewStudent(StudentDTO student) in /src/UserProfileService.Data/Entities/Student.cs:line 344
+----------------------------------------
+     [2026-09-11 17:20:54] DATA ERROR: System.InvalidOperationException: Level language  does not exist.
+   at DataAccesLayer.Student.AddNewStudent(StudentDTO student) in /src/UserProfileService.Data/Entities/Student.cs:line 344
+----------------------------------------
+     [2026-09-11 17:35:53] DATA ERROR: System.InvalidOperationException: Level language  does not exist.
+   at DataAccesLayer.Student.AddNewStudent(StudentDTO student)
+----------------------------------------
+     [2026-09-11 17:36:27] DATA ERROR: System.InvalidOperationException: Level language  does not exist.
+   at DataAccesLayer.Student.AddNewStudent(StudentDTO student)
+----------------------------------------
+     [2026-09-11 17:38:10] DATA ERROR: Npgsql.PostgresException (0x80004005): 23503: insert or update on table "person" violates foreign key constraint "person_native_language_foreign"
+
+DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.<ReadMessage>g__ReadMessageSequential|49_0(NpgsqlConnector connector, Boolean async)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteScalar(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteScalar()
+   at DataAccesLayer.Person.AddNewPerson(PersonDTO person, NpgsqlTransaction transaction, NpgsqlConnection connection)
+   at DataAccesLayer.Student.AddNewStudent(StudentDTO student)
+  Exception data:
+    Severity: ERROR
+    SqlState: 23503
+    MessageText: insert or update on table "person" violates foreign key constraint "person_native_language_foreign"
+    Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+    SchemaName: public
+    TableName: person
+    ConstraintName: person_native_language_foreign
+    File: ri_triggers.c
+    Line: 2608
+    Routine: ri_ReportViolation
+----------------------------------------
+     

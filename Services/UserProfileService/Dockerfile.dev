@@ -7,9 +7,8 @@ COPY UserProfileService.sln .
 COPY UserProfileService.Api/UserProfileService.Api.csproj UserProfileService.Api/
 COPY UserProfileService.Business/UserProfileService.Business.csproj UserProfileService.Business/
 COPY UserProfileService.Data/UserProfileService.Data.csproj UserProfileService.Data/
-COPY UserProfileService.Data.Tests/UserProfileService.Data.Tests.csproj UserProfileService.Data.Tests/
 
-RUN dotnet restore
+RUN dotnet restore UserProfileService.Api/UserProfileService.Api.csproj
 
 COPY . .
 
