@@ -248,28 +248,6 @@ namespace DataAccesLayer
             }
         }
 
-        // public static bool DeleteLevelLanguageById(long id)
-        // {
-        //     using (var connection = new NpgsqlConnection(
-        //         SettingDataAccessConnectionString.ConnectionString))
-        //     {
-        //         connection.Open();
-
-        //         string query = @"
-        //             DELETE FROM ""lavel_languge""
-        //             WHERE id = @id;
-        //         ";
-
-        //         using (var command = new NpgsqlCommand(query, connection))
-        //         {
-        //             command.Parameters.AddWithValue("@id", id);
-
-        //             int rowsAffected =
-        //                 command.ExecuteNonQuery();
-
-        //             return rowsAffected > 0;
-        //         }
-        //     }
-        // }
+      
     }
 }

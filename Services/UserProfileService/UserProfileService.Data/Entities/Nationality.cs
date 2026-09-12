@@ -171,7 +171,7 @@ namespace DataAccesLayer
             return nationalities.Count > 0;
         }
 
-        public static long AddNewNationality( string name)
+        public static long AddNewNationality( string? name)
         {
             using (var connection = new NpgsqlConnection(
                 SettingDataAccessConnectionString.ConnectionString))
@@ -321,5 +321,5 @@ namespace DataAccesLayer
         }
     
     
-    }//id name_country
+    }
 }

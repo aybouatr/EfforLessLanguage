@@ -5,7 +5,7 @@ using Npgsql;
 using DataAccessLayerSetting;
 using Microsoft.Extensions.Logging;
 
-namespace DataAccesLayer
+namespace DataAccesLayer 
 {
     public class StudentDTO
     {
